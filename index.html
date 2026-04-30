@@ -36,7 +36,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;justify-content
 .hero-label.in{opacity:1;transform:translateY(0);}
 .hero h1{font-size:clamp(2.9rem,5.6vw,5.8rem);font-weight:700;line-height:1;letter-spacing:-.018em;color:var(--text);max-width:min(1120px,92vw);word-break:normal;overflow-wrap:normal;hyphens:none;}
 .hero h1 em{font-style:italic;font-weight:300;color:var(--accent);}
-.ch{display:inline-block;transform:translateY(115%);opacity:0;transition:transform .82s cubic-bezier(.16,1,.3,1),opacity .55s ease;}
+.word{display:inline-block;white-space:nowrap;}.ch{display:inline-block;transform:translateY(115%);opacity:0;transition:transform .82s cubic-bezier(.16,1,.3,1),opacity .55s ease;}
 .ch.in{transform:translateY(0);opacity:1;}
 .hero h1 em .ch{color:var(--accent);}
 .hero-sub{font-size:1.48rem;line-height:1.72;color:var(--text2);margin-top:2rem;max-width:860px;font-weight:300;opacity:0;transform:translateY(14px);transition:opacity .9s 1s,transform .9s 1s;}
@@ -289,7 +289,7 @@ footer span{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.12em;
   <div class="hero-overlay"></div>
   <div class="hero-content" id="heroContent">
     <div class="hero-label" id="heroLabel">Diseñador gráfico, director visual y realizador audiovisual — Bogotá, Colombia</div>
-    <h1 id="heroTitle">Diseño visual para marcas<br>que quieren ser <em>recordadas</em>.</h1>
+    <h1 id="heroTitle">Diseño visual para marcas<br> que quieren ser <em>recordadas</em>.</h1>
     <p class="hero-sub" id="heroSub">Trabajo con marcas gastronómicas, hoteleras, culturales y corporativas que buscan una identidad sólida, sensible y con intención.</p>
     <div class="hero-ctas" id="heroCtas">
       <a href="#proyectos" class="btn-main" data-es="Ver trabajo" data-en="See work">Ver trabajo</a>
@@ -418,11 +418,26 @@ window.addEventListener("load",function(){
 function splitText(){
   var h1=document.getElementById("heroTitle");if(!h1)return;
   var nodes=Array.from(h1.childNodes),out="",delay=0;
-  nodes.forEach(function(n){
-    if(n.nodeType===3){n.textContent.split("").forEach(function(c){if(c===" ")out+=" ";else{out+='<span class="ch" style="transition-delay:'+delay+'ms">'+c+"</span>";delay+=28;}});}
-    else if(n.nodeName==="BR"){out+="<br>";}
-    else if(n.nodeName==="EM"){out+="<em>";n.textContent.split("").forEach(function(c){if(c===" ")out+=" ";else{out+='<span class="ch" style="transition-delay:'+delay+'ms">'+c+"</span>";delay+=28;}});out+="</em>";}
-  });
+  function renderText(text){
+    var tokens=text.split(/(\s+)/);
+    tokens.forEach(function(token){
+      if(!token)return;
+      if(/^\s+$/.test(token)){out+=" ";return;}
+      out+='<span class="word">';
+      token.split("").forEach(function(c){out+='<span class="ch" style="transition-delay:'+delay+'ms">'+c+'</span>';delay+=28;});
+      out+='</span>';
+    });
+  }
+  function renderNodes(list){
+    list.forEach(function(n){
+      if(n.nodeType===3){renderText(n.textContent);}
+      else if(n.nodeName==="BR"){out+="<br>";}
+      else if(n.nodeName==="EM"){
+        out+="<em>";renderText(n.textContent);out+="</em>";
+      }
+    });
+  }
+  renderNodes(nodes);
   h1.innerHTML=out;
   requestAnimationFrame(function(){requestAnimationFrame(function(){document.querySelectorAll("#heroTitle .ch").forEach(function(c){c.classList.add("in");});});});
 }
@@ -542,7 +557,7 @@ function toggleLang(){
   document.getElementById("langBtn").textContent=lang==="es"?"EN":"ES";
   document.querySelectorAll("[data-es]").forEach(function(el){el.textContent=el.getAttribute("data-"+lang)||el.textContent;});
   document.getElementById("heroLabel").textContent=lang==="es"?"Diseñador gráfico, director visual y realizador audiovisual — Bogotá, Colombia":"Graphic Designer, Visual Director & Audiovisual Creator — Bogotá, Colombia";
-  document.getElementById("heroTitle").innerHTML=lang==="es"?"Diseño visual para marcas<br>que quieren ser <em>recordadas</em>.":"Visual design for brands<br>that want to be <em>remembered</em>.";
+  document.getElementById("heroTitle").innerHTML=lang==="es"?"Diseño visual para marcas<br> que quieren ser <em>recordadas</em>.":"Visual design for brands<br> that want to be <em>remembered</em>.";
   document.getElementById("heroSub").textContent=lang==="es"?"Trabajo con marcas gastronómicas, hoteleras, culturales y corporativas que buscan una identidad sólida, sensible y con intención.":"I work with hospitality, culinary, cultural and corporate brands seeking a solid, refined and intentional visual identity.";
   document.getElementById("stmtText").innerHTML=lang==="es"?"Ocho años construyendo marcas e historias visuales <em>desde Colombia,</em> con una mirada global. Trabajo con marcas gastronómicas, hoteleras, musicales y corporativas que buscan ser recordadas por lo que son, no solo por lo que hacen.":"Eight years building brands and visual stories <em>from Colombia,</em> with a global perspective. I work with culinary, hospitality, music, and corporate brands that seek to be remembered for what they are, not just for what they do.";
   document.getElementById("projTitle").innerHTML=lang==="es"?"Proyectos <em>Seleccionados</em>":"Selected <em>Projects</em>";
