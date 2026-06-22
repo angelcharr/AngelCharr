@@ -24,279 +24,337 @@
 <meta name="twitter:description" content="Portafolio de diseño visual, branding y dirección creativa.">
 <meta name="twitter:image" content="https://res.cloudinary.com/dxpap6uiq/image/upload/v1775855770/DI-CARATULA_qkgfi1.png">
 
-<!-- Extra -->
 <meta name="robots" content="index, follow">
-<link rel="canon
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://angelcharr.netlify.app/">
+
+<!-- Tipografías: Inter, DM Mono y la Serif Luxury EB Garamond -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&family=DM+Mono:wght@300;400&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="https://res.cloudinary.com/dxpap6uiq/image/upload/f_auto,q_auto,w_800/v1775855773/favicon_mtdwfe.png">
+
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
   --bg:#0c0c0b;--bg2:#111110;--bg3:#161614;--text:#f0ece5;--text2:#c8c4bc;
   --muted:#8a867e;--accent:#c8a96e;--accent2:#e8c98a;--border:#252520;
+  --font-premium: 'Inter', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --font-luxury: 'EB Garamond', serif;
 }
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:"Cormorant Garamond",serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-premium);-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none;}
+
+/* CURSORES CON SOPORTE DE TEXTO FLOTANTE */
 #cd{width:7px;height:7px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .14s;opacity:.9;}
-#cr{width:32px;height:32px;border:1px solid rgba(200,169,110,.32);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .35s,height .35s,border-color .35s,background .35s;}
-#curtain{position:fixed;inset:0;z-index:9000;pointer-events:all;}
-#ci{position:absolute;inset:0;background:#080807;transform:translateY(0%);}
-#curtain.out #ci{transition:transform .8s cubic-bezier(.76,0,.24,1);transform:translateY(-100%);}
-#curtain.cover #ci{transition:transform .65s cubic-bezier(.76,0,.24,1);transform:translateY(0%);}
+#cr{
+  width:32px;height:32px;border:1px solid rgba(200,169,110,.32);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;overflow:hidden;white-space:nowrap;
+  transition:width .35s,height .35s,border-color .35s,background .35s;
+}
+#cr span {
+  font-family: var(--font-mono);font-size: 8px;letter-spacing: 1px;color: var(--bg);text-transform: uppercase;
+  opacity: 0;transition: opacity .2s ease;display: block;
+}
+
+/* Manejo secundario para transiciones de los casos de estudio */
+#modal-curtain { position: fixed; inset: 0; z-index: 9000; pointer-events: none; }
+#modal-ci { position: absolute; inset: 0; background: #080807; transform: translateY(-100%); }
+#modal-curtain.cover #modal-ci { transition: transform .65s cubic-bezier(.76,0,.24,1); transform: translateY(0%); }
+#modal-curtain.out #modal-ci { transition: transform .65s cubic-bezier(.76,0,.24,1); transform: translateY(-100%); }
+
 nav{position:fixed;top:0;left:0;right:0;z-index:300;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 3.5rem;background:rgba(12,12,11,.38);backdrop-filter:blur(14px);border-bottom:.5px solid rgba(240,236,229,.08);}
-.nav-logo{font-size:17px;font-weight:600;color:var(--text);text-decoration:none;letter-spacing:.04em;}
 .nav-logo img{width:56px;height:auto;display:block;}
 .nav-links{display:flex;gap:2.5rem;align-items:center;}
-.nav-links a{font-family:"DM Mono",monospace;font-size:13px;letter-spacing:.14em;color:var(--text2);text-decoration:none;text-transform:uppercase;transition:color .25s;}
+.nav-links a{font-size:13px;letter-spacing:.14em;color:var(--text2);text-decoration:none;text-transform:uppercase;transition:color .25s;}
 .nav-links a:hover{color:var(--text);}
-.lang-btn{font-family:"DM Mono",monospace;font-size:13px;letter-spacing:.14em;color:var(--accent);background:transparent;border:1px solid rgba(200,169,110,.3);padding:6px 14px;cursor:none;text-transform:uppercase;transition:all .25s;}
-.lang-btn:hover{background:var(--accent);color:var(--bg);}
+.lang-btn{font-size:13px;letter-spacing:.14em;color:var(--accent);background:transparent;border:1px solid rgba(200,169,110,.3);padding:6px 14px;cursor:none;text-transform:uppercase;transition:all .25s;}
+.lang-btn:hover { background: var(--accent); color: var(--bg); }
+
+/* JERARQUÍA TIPOGRÁFICA UNIFICADA EN TAMAÑOS */
+.hero h1, .sec-title, .av-title, .about-left h2, .contact-headline, .modal-title, .av-col-txt h3, .av-modal-title h2 {
+  font-family: var(--font-premium) !important;font-weight: 200 !important;letter-spacing: -0.02em;line-height: 1.15;text-transform: none;text-wrap: balance;
+}
+.hero h1 em, .sec-title em, .av-title em, .contact-headline em, .modal-title em, .statement-section h2 em {
+  font-family: var(--font-luxury) !important;font-style: italic;font-weight: 400;color: var(--accent);letter-spacing: -0.02em;font-size: inherit;
+}
+.hero-sub, .about-bio p, .contact-sub, .modal-desc, .statement-section h2, .av-col-txt p, .av-sound-note, .av-modal-title p {
+  font-family: var(--font-premium) !important;font-weight: 100;color: var(--text2);line-height: 1.7;letter-spacing: 0.01em;text-wrap: pretty;
+}
+.nav-links a, .lang-btn, .hero-label, .btn-main, .btn-ghost, .ticker-item, .sec-eyebrow, .filter-btn, .tool-tag, .av-label, .av-audio-toggle, .av-close, .av-sound-btn, footer span {
+  font-family: var(--font-mono) !important;
+}
+
 .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3.5rem 5rem;overflow:hidden;background:var(--bg);}
-.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.46;z-index:0;filter:contrast(1.08) brightness(.95) saturate(1.04);transition:opacity .6s ease,filter .6s ease;}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(12,12,11,.78) 0%,rgba(12,12,11,.32) 55%,rgba(12,12,11,.04) 100%);z-index:1;}.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 50% 38%,rgba(240,236,229,.06) 0%,rgba(12,12,11,0) 38%,rgba(12,12,11,.38) 100%);}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;z-index:0;filter:contrast(1.08) brightness(.95) saturate(1.04);transition:opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform .38s ease;}
+.hero-video.loaded{opacity:.46;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(12,12,11,.78) 0%,rgba(12,12,11,.32) 55%,rgba(12,12,11,.04) 100%);z-index:1;}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 50% 38%,rgba(240,236,229,.06) 0%,rgba(12,12,11,0) 38%,rgba(12,12,11,.38) 100%);}
 .hero-content{position:relative;z-index:2;}
-.hero-label{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:1.8rem;opacity:0;transform:translateY(14px);transition:opacity .9s .28s,transform .9s .28s;}
+.hero-label{font-size:11px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:1.8rem;opacity:0;transform:translateY(14px);transition:opacity .9s .28s,transform .9s .28s;}
 .hero-label.in{opacity:1;transform:translateY(0);}
-.hero h1{font-size:clamp(2.9rem,5.6vw,5.8rem);font-weight:700;line-height:1;letter-spacing:-.018em;color:var(--text);max-width:min(1120px,92vw);word-break:normal;overflow-wrap:normal;hyphens:none;}
-.hero h1 em{font-style:italic;font-weight:300;color:var(--accent);}
+.hero h1{font-size:clamp(2.5rem,5.2vw,5.5rem);max-width:min(1120px,92vw);word-break:normal;overflow-wrap:normal;hyphens:none;}
 .word{display:inline-block;white-space:nowrap;}.ch{display:inline-block;transform:translateY(115%);opacity:0;transition:transform .82s cubic-bezier(.16,1,.3,1),opacity .55s ease;}
 .ch.in{transform:translateY(0);opacity:1;}
-.hero h1 em .ch{color:var(--accent);}
-.hero-sub{font-size:1.48rem;line-height:1.72;color:var(--text2);margin-top:2rem;max-width:860px;font-weight:300;opacity:0;transform:translateY(14px);transition:opacity .9s 1s,transform .9s 1s;}
+.hero-sub{font-size:1.4rem;margin-top:2rem;max-width:860px;opacity:0;transform:translateY(14px);transition:opacity .9s 1s,transform .9s 1s;}
 .hero-sub.in{opacity:1;transform:translateY(0);}
 .hero-ctas{display:flex;gap:2rem;margin-top:2.5rem;align-items:center;opacity:0;transform:translateY(14px);transition:opacity .9s 1.18s,transform .9s 1.18s;}
 .hero-ctas.in{opacity:1;transform:translateY(0);}
-.btn-main{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--bg);background:var(--text);padding:14px 28px;text-decoration:none;transition:opacity .2s;}
+.btn-main{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--bg);background:var(--text);padding:14px 28px;text-decoration:none;transition:opacity .2s;}
 .btn-main:hover{opacity:.85;}
-.btn-ghost{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:3px;transition:color .25s,border-color .25s;}
+.btn-ghost{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:3px;transition:color .25s,border-color .25s;}
 .btn-ghost:hover{color:var(--text);border-color:var(--muted);}
 .hero-scroll{position:absolute;bottom:2.5rem;right:3.5rem;z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;transition:opacity .9s 1.45s;}
 .hero-scroll.in{opacity:1;}
-.hero-scroll span{font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;writing-mode:vertical-rl;}
+.hero-scroll span{font-size:9px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;writing-mode:vertical-rl;}
 .scroll-line{width:.5px;height:54px;background:linear-gradient(to bottom,transparent,var(--accent));animation:spulse 2s ease-in-out infinite;}
 @keyframes spulse{0%,100%{opacity:1;transform:scaleY(1);}50%{opacity:.3;transform:scaleY(.5);}}
+
 .ticker-wrap{width:100%;overflow:hidden;background:var(--bg2);border-top:.5px solid var(--border);border-bottom:.5px solid var(--border);padding:.9rem 0;}
 .ticker-track{display:flex;width:max-content;animation:ticker 42s linear infinite;}
 .ticker-track:hover{animation-play-state:paused;}
-.ticker-item{font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:0 3rem;white-space:nowrap;transition:color .25s;}
+.ticker-item{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:0 3rem;white-space:nowrap;transition:color .25s;}
 .ticker-item:hover{color:var(--accent);}
 .ticker-sep{color:var(--border);padding:0 .5rem;}
 @keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
 .projects-section{padding:8rem 1.2rem 4rem;background:linear-gradient(to bottom,#0c0c0b,#161614,#0c0c0b);border-top:1px solid rgba(200,169,110,.1);border-bottom:0;}
 section{padding:8rem 3.5rem;background:var(--bg);}
-.sec-eyebrow{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase;margin-bottom:1rem;}
-.sec-title{font-size:clamp(2.2rem,4.5vw,4rem);font-weight:600;letter-spacing:-.02em;color:var(--text);margin-bottom:3.5rem;line-height:1.05;}
-.sec-title em{font-style:italic;font-weight:300;color:var(--accent);}
-.filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:3rem;}
-.filter-btn{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);background:transparent;border:.5px solid var(--border);padding:8px 18px;cursor:none;transition:all .2s;}
-.filter-btn:hover,.filter-btn.active{color:var(--text);border-color:var(--accent);background:rgba(200,169,110,.06);}
+.sec-eyebrow{font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase;margin-bottom:1rem;}
+.sec-title{font-size:clamp(2.2rem,4.5vw,4rem);margin-bottom:3.5rem;line-height:1.05;}
 .projects-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;width:100%;max-width:1760px;margin:0 auto;}
 .showcase-grid{margin-top:3.6rem;}
-.proj-card{position:relative;overflow:hidden;cursor:none;transition:transform .85s cubic-bezier(.23,1,.32,1),box-shadow .85s ease;}
-.proj-card.featured{grid-column:auto;}
+.proj-card{position:relative;overflow:hidden;cursor:none;transition:transform .85s cubic-bezier(.23,1,.32,1),box-shadow .85s ease;border-radius:12px;}
 .proj-card .img-wrap{overflow:hidden;position:relative;}
 .proj-card img{width:100%;aspect-ratio:16/7;object-fit:cover;display:block;transition:transform 1.05s cubic-bezier(.23,1,.32,1),filter 1.05s ease;will-change:transform;}
-.proj-card.featured img{aspect-ratio:16/7;}
 .proj-card:hover{box-shadow:0 0 28px -8px rgba(200,169,110,.34);z-index:10;transform:translateY(-3px);}
 .proj-card:hover img{transform:scale(1.04);filter:contrast(1.06) brightness(1.04);}
-.proj-card-overlay{position:absolute;inset:0;background:linear-gradient(transparent 35%,rgba(8,8,7,.88) 100%);opacity:0;transition:opacity .7s ease;}
+.proj-card-overlay{position:absolute;inset:0;background:linear-gradient(transparent 35%,rgba(8,8,7,.92) 100%);opacity:0;transition:opacity .7s ease;}
 .proj-card:hover .proj-card-overlay{opacity:1;}
 .proj-card-info{position:absolute;bottom:0;left:0;right:0;padding:1.8rem;transform:translateY(10px);opacity:0;transition:opacity .7s ease,transform .7s cubic-bezier(.23,1,.32,1);}
 .proj-card:hover .proj-card-info{opacity:1;transform:translateY(0);}
-.proj-card-cat{font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.18em;color:var(--accent);text-transform:uppercase;margin-bottom:5px;}
-.proj-card-name{font-size:1.3rem;font-weight:600;color:#fff;display:block;margin-bottom:3px;}
-.proj-card.featured .proj-card-name{font-size:1.3rem;}
-.proj-card-desc{font-family:"DM Mono",monospace;font-size:9px;color:rgba(255,255,255,.5);letter-spacing:.08em;}
-.proj-card-tag{position:absolute;top:1rem;left:1rem;font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:rgba(12,12,11,.8);border:.5px solid rgba(200,169,110,.25);padding:4px 10px;}
-.proj-card.hidden{display:none;}
-.see-more{display:inline-flex;align-items:center;gap:8px;margin-top:3rem;font-family:"DM Mono",monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:.5px solid var(--border);padding-bottom:3px;transition:color .25s,border-color .25s;}
-.see-more:hover{color:var(--accent);border-color:var(--accent);}
-.all-projects-wrap{display:flex;justify-content:center;align-items:center;gap:1.8rem;margin-top:3.4rem;width:100%;max-width:none;margin-left:auto;margin-right:auto;padding:0 1.2rem;}.all-projects-wrap::before,.all-projects-wrap::after{content:"";display:block;height:1px;flex:1;min-width:0;background:linear-gradient(to right,transparent,rgba(200,169,110,.36));}.all-projects-wrap::after{background:linear-gradient(to left,transparent,rgba(200,169,110,.36));}@media(max-width:480px){.all-projects-wrap{gap:1rem;padding:0;}.all-projects-wrap::before,.all-projects-wrap::after{max-width:none;}}
-.all-projects-btn{position:relative;z-index:1;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--text);text-decoration:none;border:1px solid rgba(240,236,229,.35);border-radius:999px;padding:13px 28px;transition:all .3s ease;background:transparent;display:inline-flex;align-items:center;justify-content:center;}
+.proj-card-cat{font-size:9px;letter-spacing:.18em;color:var(--accent);text-transform:uppercase;margin-bottom:5px;}
+.proj-card-name{font-size:1.3rem;font-weight:300;color:#fff;display:block;margin-bottom:3px;}
+.proj-card-desc{font-size:9px;color:rgba(255,255,255,.5);letter-spacing:.08em;}
+.proj-card-tag{position:absolute;top:1rem;left:1rem;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:rgba(12,12,11,.8);border:.5px solid rgba(200,169,110,.25);padding:4px 10px;border-radius:4px;}
+.all-projects-wrap{display:flex;justify-content:center;align-items:center;gap:1.8rem;margin-top:3.4rem;width:100%;max-width:none;margin-left:auto;margin-right:auto;padding:0 1.2rem;}.all-projects-wrap::before,.all-projects-wrap::after{content:"";display:block;height:1px;flex:1;min-width:0;background:linear-gradient(to right,transparent,rgba(200,169,110,.36));}.all-projects-wrap::after{background:linear-gradient(to left,transparent,rgba(200,169,110,.36));}
+.all-projects-btn{position:relative;z-index:1;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--text);text-decoration:none;border:1px solid rgba(240,236,229,.35);border-radius:999px;padding:13px 28px;transition:all .3s ease;background:transparent;display:inline-flex;align-items:center;justify-content:center;}
 .all-projects-btn:hover{border-color:var(--accent);color:var(--bg);background:var(--accent);}
-.statement-section{padding:4rem 3.5rem 0;background:var(--bg2);border-top:.5px solid rgba(200,169,110,.12);text-align:center;}
-.statement-section h2{font-size:clamp(1.55rem,2.7vw,2.7rem);font-weight:400;line-height:1.28;letter-spacing:-.01em;color:var(--text);max-width:980px;margin:0 auto 3rem;text-align:center;}
-.statement-section h2 em{font-style:italic;color:var(--accent);}
+
+.statement-section{padding:8rem 3.5rem 0;background:var(--bg2);border-top:.5px solid rgba(200,169,110,.12);text-align:center;}
+.statement-section h2{font-size:clamp(1.55rem,2.7vw,2.7rem);line-height:1.28;letter-spacing:-.01em;max-width:980px;margin:0 auto 3rem;text-align:center;}
 .skills-ticker{margin-top:0;padding-top:.9rem;padding-bottom:.9rem;border-top:.5px solid rgba(200,169,110,.12);border-bottom:.5px solid rgba(200,169,110,.12);overflow:hidden;height:auto;display:flex;align-items:center;}
 .skills-inner{display:flex;width:max-content;animation:ticker 50s linear infinite;align-items:center;}
-.skill-item{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:0 .45rem;white-space:nowrap;line-height:1;}.skill-sep{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:0;color:var(--border);padding:0 .06rem;white-space:nowrap;line-height:1;}
+.skill-item{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:0 .45rem;white-space:nowrap;line-height:1;}.skill-sep{font-size:10px;letter-spacing:0;color:var(--border);padding:0 .06rem;white-space:nowrap;line-height:1;}
 .skill-item b{color:var(--text2);font-weight:400;}
+
 .about-section{padding:5.8rem 3.5rem 8rem;background:var(--bg3);border-top:0;display:grid;grid-template-columns:1.28fr .72fr;gap:4.5rem;align-items:start;}
-.about-left h2{font-size:clamp(3.2rem,6vw,5.4rem);font-weight:700;line-height:.95;letter-spacing:-.018em;color:var(--text);white-space:nowrap;}
-.about-left h2 em{display:inline;font-style:italic;font-weight:300;color:var(--accent);}
-.about-badge{margin-top:2rem;display:inline-flex;align-items:center;gap:8px;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);border:.5px solid rgba(200,169,110,.3);padding:8px 16px;}
+.about-left h2{font-size:clamp(3.2rem,6vw,5.4rem);line-height:.95;white-space:nowrap;}
+.about-badge{margin-top:2rem;display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);border:.5px solid rgba(200,169,110,.3);padding:8px 16px;border-radius:4px;}
 .about-badge::before{content:"";width:6px;height:6px;background:var(--accent);border-radius:50%;animation:blink 2s ease-in-out infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
 .about-bio{margin-top:2.5rem;max-width:820px;}
-.about-bio p{font-size:clamp(1.1rem,1.5vw,1.3rem);font-weight:300;line-height:1.9;color:var(--text2);margin-bottom:1.4rem;}
-.about-bio p strong{color:var(--text);font-weight:600;}
+.about-bio p{font-size:clamp(1.1rem,1.5vw,1.3rem);margin-bottom:1.4rem;}
+.about-bio p strong{color:var(--text);font-weight:400;}
 .about-tools{margin-top:2.5rem;display:flex;flex-wrap:wrap;gap:8px;max-width:820px;}
-.tool-tag{font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:.5px solid var(--border);padding:6px 14px;transition:all .2s;}
+.tool-tag{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:.5px solid var(--border);padding:6px 14px;border-radius:4px;transition:all .2s;}
 .tool-tag:hover{color:var(--text);border-color:var(--muted);}
+
 .about-right{border-top:.5px solid var(--border);}
-.about-redes-label{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);padding:.9rem 0;border-bottom:.5px solid var(--border);display:block;}
+.about-redes-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);padding:.9rem 0;border-bottom:.5px solid var(--border);display:block;}
 .about-redes-link{display:flex;justify-content:space-between;align-items:center;padding:1.3rem 0;border-bottom:.5px solid var(--border);text-decoration:none;position:relative;overflow:hidden;transition:all .3s;cursor:none;}
 .about-redes-link::before{content:"";position:absolute;inset:0;background:rgba(200,169,110,.05);transform:translateX(-100%);transition:transform .4s cubic-bezier(.25,.46,.45,.94);}
 .about-redes-link:hover::before{transform:translateX(0);}
-.about-redes-name{font-size:clamp(1.2rem,2vw,1.6rem);font-weight:600;color:var(--text);letter-spacing:-.01em;transition:color .3s,transform .3s;}
+.about-redes-name{font-size:clamp(1.2rem,2vw,1.6rem);font-weight:300;color:var(--text);letter-spacing:-.01em;transition:color .3s,transform .3s;}
 .about-redes-link:hover .about-redes-name{color:var(--accent);transform:translateX(10px);font-style:italic;}
-.about-redes-meta{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;transition:color .3s;}
+.about-redes-meta{font-size:10px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;transition:color .3s;}
 .about-redes-link:hover .about-redes-meta{color:var(--accent);}
 .about-redes-arrow{color:var(--muted);opacity:0;transform:translateX(-6px);transition:all .3s;}
 .about-redes-link:hover .about-redes-arrow{opacity:1;transform:translateX(0);color:var(--accent);}
-.manifesto-section{padding:4.2rem 3.5rem;text-align:center;background:var(--bg3);border-top:.5px solid rgba(200,169,110,.12);}
-.manifesto-section p{font-size:clamp(1.7rem,2.6vw,2.6rem);line-height:1.35;color:var(--text);max-width:820px;margin:0 auto;letter-spacing:-.012em;}
+
+/* SECCIÓN SPLIT AUDIOVISUAL CO COORDENADAS INTERACTIVAS */
+.av-wrap{padding:80px 3.5rem 34px;max-width:1400px;margin:0 auto;text-align:left;}
+.av-label{font-size:.85rem;letter-spacing:2px;text-transform:uppercase;opacity:.6;margin-bottom:20px;}
+.av-title{font-size:3.2rem;letter-spacing:1px;font-weight:200;text-transform:none;max-width:840px;}
+.av-sound-note { margin-top: 12px; font-family: var(--font-mono) !important; font-size: .65rem; letter-spacing: 1px; text-transform: uppercase; color: rgba(240,236,229,.45); }
+
+.av-split{
+  position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));min-height:86vh;
+  background:radial-gradient(ellipse at 50% 30%,rgba(200,169,110,.04),transparent 45%),#0c0c0b;
+  margin:0;padding:clamp(28px,4vw,56px) 3.5rem;gap:24px;overflow:hidden;perspective: 1400px;
+  cursor: none !important;
+  transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);
+}
+.av-split::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:22vh;z-index:5;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(12,12,11,0),rgba(12,12,11,.78) 72%,#0c0c0b 100%);opacity:.8;
+}
+.av-split.is-leaving{ opacity:.72; transform:translateY(-18px); }
+.av-split.is-leaving .av-col{ opacity:.34; transform:translateY(-18px) scale(.96); }
+
+.av-col{
+  position:relative;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:22px;cursor:none !important;transform-style: preserve-3d;transition:transform .8s cubic-bezier(0.25, 1, 0.35, 1);
+}
+
+.av-frame{
+  position:relative;z-index:1;width:100%;max-width:285px;height:auto;max-height:64vh;aspect-ratio:9/16;
+  border-radius: 0px !important;background:#000;overflow:hidden;opacity:.62;filter:grayscale(100%) brightness(.86);
+  border: 1px solid rgba(240,236,229,.07);box-shadow:0 15px 45px rgba(0,0,0,.5);transform-style: preserve-3d;
+  will-change: transform;transition:transform .8s cubic-bezier(0.25, 1, 0.35, 1), opacity .5s, filter .5s, box-shadow .5s, border-color .5s;
+}
+.av-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit: cover !important;display:block;}
+
+.av-col-txt{position:relative;z-index:2;text-align:center;color:#fff;pointer-events:none;padding:0 12px;transition:transform .6s;}
+.av-col-txt h3{font-size:clamp(1.15rem,1.65vw,1.85rem);letter-spacing:1px;margin-bottom:8px;font-weight:200;text-transform:uppercase;transition:color .35s ease;}
+.av-col-txt p{font-size:.68rem;opacity:.48;letter-spacing:1px;line-height:1.5;text-transform:uppercase;transition:opacity .35s ease;}
+
+.av-split:hover .av-col:not(:hover){opacity:.4;transform:scale(.96) translateZ(-50px);}
+.av-split:hover .av-col:hover, .av-col.is-active{
+  transform: matrix3d(1.03, 0, 0.04, 0.0001, 0, 1.03, 0, 0, -0.04, 0, 1, 0, 0, -16, 45, 1);z-index: 10;
+}
+.av-split:hover .av-col:hover .av-frame, .av-col.is-active .av-frame{
+  opacity:1;filter:grayscale(0%) brightness(.98);border-color: rgba(200,169,110,.45);
+  box-shadow: 0 40px 95px rgba(0,0,0,.7), 0 0 35px rgba(200,169,110,.14);
+}
+.av-col:hover .av-col-txt, .av-col.is-active .av-col-txt { transform: scale(1.02) translateY(-2px); }
+.av-col:hover .av-col-txt h3, .av-col.is-active .av-col-txt h3{color:var(--accent);}
+.av-col:hover .av-col-txt p, .av-col.is-active .av-col-txt p{opacity:.85;}
+
+.av-modal{
+  position:fixed;inset:0;background:radial-gradient(ellipse at 50% 46%,rgba(200,169,110,.08),rgba(12,12,11,.96) 48%,rgba(8,8,7,.985) 100%);backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);z-index:999;display:flex;align-items:center;justify-content:center;overflow-y:auto;padding:clamp(18px,3vw,40px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .42s ease,visibility .42s ease,backdrop-filter .55s ease;
+}
+.av-modal.active{opacity:1;visibility:visible;pointer-events:all;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);}
+.av-modal-inner{width:min(100%,520px);margin:0 auto;display:flex;flex-direction:column;align-items:center;opacity:0;transform:translateY(22px) scale(.975);transition:opacity .48s cubic-bezier(.16,1,.3,1),transform .48s cubic-bezier(.16,1,.3,1);}
+.av-modal.active .av-modal-inner{opacity:1;transform:translateY(0) scale(1);}
+.av-modal-head{width:100%;display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:18px;gap:20px;}
+.av-close{background:0;border:1px solid rgba(255,255,255,.3);color:#fff;padding:10px 16px;border-radius:999px;font-size:.68rem;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .4s;white-space:nowrap;}
+.av-close:hover{border-color:var(--accent);color:#0c0c0b;background:var(--accent);box-shadow:0 0 20px rgba(200,169,110,.3);}
+.av-section{width:100%;margin-bottom:0;display:flex;flex-direction:column;align-items:center;}
+.av-section h3,.av-reels,.av-reel{display:none;}
+.av-aftermovie{
+  width:min(78vw,390px);max-height:78vh;aspect-ratio:9/16;border-radius:22px;overflow:hidden;border:1px solid rgba(200,169,110,.22);background:#000;margin:0 auto;box-shadow:0 30px 110px rgba(0,0,0,.62),0 0 38px rgba(200,169,110,.1);transform:translateY(12px);opacity:.88;transition:transform .55s cubic-bezier(.16,1,.3,1),opacity .55s ease,box-shadow .55s ease;
+}
+.av-modal.active .av-aftermovie{transform:translateY(0);opacity:1;box-shadow:0 34px 120px rgba(0,0,0,.68),0 0 42px rgba(200,169,110,.14);}
+.av-aftermovie video{width:100%;height:100%;object-fit:contain;background:#000;display:block;}
+
+/* CONTACTO */
 .contact-section{background:var(--bg);border-top:.5px solid rgba(200,169,110,.12);min-height:auto;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;transition:background .9s cubic-bezier(.76,0,.24,1);}
 .contact-section.hovered{background:radial-gradient(ellipse at 50% 60%,#3a2800 0%,#1a1100 40%,#0c0c0b 100%);}
 .contact-inner{padding:4.2rem 3.5rem 3.6rem;display:flex;flex-direction:column;align-items:center;gap:1.05rem;position:relative;z-index:1;width:100%;}
-.contact-eyebrow{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase;margin-bottom:.2rem;}
-.contact-headline{font-size:clamp(3rem,7.2vw,7rem);font-weight:700;line-height:.9;letter-spacing:-.03em;color:var(--text);}
-.contact-headline em{font-style:italic;font-weight:300;color:var(--accent);}
-.contact-availability{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);opacity:.82;margin:.35rem 0 .15rem;}.contact-sub{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.1em;color:var(--muted);max-width:560px;line-height:1.75;}
+.contact-inner.reveal { opacity: 0; transform: translateY(24px); transition: opacity 1.05s ease, transform 1.05s ease; }
+.contact-inner.reveal.visible { opacity: 1; transform: translateY(0); }
+.contact-eyebrow{font-size:10px;letter-spacing:.25em;color:var(--accent);text-transform:uppercase;margin-bottom:.2rem;}
+.contact-headline{font-size:clamp(3rem,7.2vw,7rem);line-height:.9;}
+.contact-availability{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);opacity:.82;margin:.35rem 0 .15rem;}
+.contact-sub{font-size:10px;letter-spacing:.1em;color: rgba(240,236,229,0.75) !important;max-width:560px;line-height:1.75;}
 .lets-talk-wrap{position:relative;display:inline-block;margin-top:.8rem;cursor:none;}
 .lets-talk-canvas,.orbit-canvas{position:absolute;top:-24px;left:-24px;pointer-events:none;z-index:2;}.orbit-btn-wrap{position:relative;display:inline-block;cursor:none;}.all-projects-orbit .orbit-canvas{top:-12px;left:-12px;}
-.lets-talk-btn{position:relative;z-index:1;display:inline-flex;align-items:center;gap:16px;padding:22px 56px;background:transparent;border:1px solid rgba(200,169,110,.12);border-radius:50px;color:var(--text);text-decoration:none;font-family:"Cormorant Garamond",serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:600;letter-spacing:-.01em;cursor:none;transition:background .85s cubic-bezier(.76,0,.24,1),color .65s cubic-bezier(.76,0,.24,1),border-color .65s cubic-bezier(.76,0,.24,1),transform .65s cubic-bezier(.23,1,.32,1);}
+.lets-talk-btn{position:relative;z-index:1;display:inline-flex;align-items:center;gap:16px;padding:22px 56px;background:transparent;border:1px solid rgba(200,169,110,.12);border-radius:50px;color:var(--text);text-decoration:none;font-size:clamp(2rem,4vw,3.5rem);font-weight:200;letter-spacing:-.01em;cursor:none;transition:background .85s cubic-bezier(.76,0,.24,1),color .65s cubic-bezier(.76,0,.24,1),border-color .65s cubic-bezier(.65,1,.32,1),transform .65s cubic-bezier(.23,1,.32,1);}
 .lets-talk-btn:hover{background:var(--accent);color:var(--bg);border-color:var(--accent);transform:translateY(-2px);}
 .lets-talk-arrow{transition:transform .65s cubic-bezier(.23,1,.32,1);display:inline-block;}
 .lets-talk-btn:hover .lets-talk-arrow{transform:translateX(10px);}
 .contact-socials{display:flex;align-items:center;gap:1.2rem;margin-top:.8rem;flex-wrap:wrap;justify-content:center;}
-.contact-socials a{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .25s;}
+.contact-socials a{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .25s;}
 .contact-socials a:hover{color:var(--accent);}
 .contact-socials span{color:var(--border);}
+
 footer{padding:2rem 3.5rem;border-top:.5px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--bg);gap:1rem;}
-footer span{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;}
+footer span{font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;}
+
 .reveal{opacity:0;transform:translateY(24px);transition:opacity 1.05s cubic-bezier(.25,.46,.45,.94),transform 1.05s cubic-bezier(.25,.46,.45,.94);}
 .reveal.visible{opacity:1;transform:translateY(0);}
 .d1{transition-delay:.07s;}.d2{transition-delay:.15s;}.d3{transition-delay:.23s;}
 .d4{transition-delay:.31s;}.d5{transition-delay:.4s;}.d6{transition-delay:.5s;}
+
 .modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(8,8,7,0);pointer-events:none;overflow-y:auto;}
 .modal-overlay.open{background:rgba(8,8,7,.97);pointer-events:all;}
-.modal-close{position:fixed;top:2rem;right:3rem;z-index:600;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);background:rgba(12,12,11,.62);backdrop-filter:blur(12px);border:.5px solid rgba(200,169,110,.42);border-radius:999px;padding:10px 20px;cursor:none;transition:color .35s ease,border-color .35s ease,background .35s ease,transform .35s ease;opacity:0;pointer-events:none;}
+.modal-close{position:fixed;top:2rem;right:3rem;z-index:600;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);background:rgba(12,12,11,.62);backdrop-filter:blur(12px);border:.5px solid rgba(200,169,110,.42);border-radius:999px;padding:10px 20px;cursor:none;transition:color .35s ease,border-color .35s ease,background .35s ease,transform .35s ease;opacity:0;pointer-events:none;}
 .modal-overlay.open .modal-close{opacity:1;pointer-events:all;}
 .modal-close:hover{color:var(--bg);border-color:var(--accent);background:var(--accent);transform:translateY(-1px);}
 .modal{width:100%;max-width:900px;margin:0 auto;padding:8rem 2rem 6rem;opacity:0;transform:translateY(40px);transition:opacity .5s,transform .5s;pointer-events:none;}
 .modal-overlay.open .modal{opacity:1;transform:translateY(0);pointer-events:all;}
-.modal-cat{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:1rem;}
-.modal-title{font-size:clamp(3rem,7vw,5.5rem);font-weight:700;line-height:.92;letter-spacing:-.025em;color:var(--text);margin-bottom:.7rem;}
-.modal-title em{font-style:italic;font-weight:300;color:var(--accent);}
-.modal-client{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:2rem;}
+.modal-cat{font-size:10px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-bottom:1rem;}
+.modal-title{font-size:clamp(3rem,7vw,5.5rem);margin-bottom:.7rem;}
+.modal-client{font-size:10px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-bottom:2rem;}
 .modal-meta{display:flex;gap:3.5rem;padding:1.5rem 0;border-top:.5px solid var(--border);border-bottom:.5px solid var(--border);margin-bottom:2.5rem;flex-wrap:wrap;}
-.modal-meta-label{font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:5px;}
-.modal-meta-val{font-size:1.05rem;color:var(--text);}
-.modal-desc{font-size:1.2rem;line-height:1.85;color:var(--text2);margin-bottom:3rem;max-width:760px;font-weight:300;}
+.modal-meta-label{font-size:9px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-bottom:5px;}
+.modal-meta-val覆{font-size:1.05rem;color:var(--text);}
+.modal-desc{font-size:1.2rem;line-height:1.85;color:var(--text2);margin-bottom:3rem;max-width:760px;}
 .case-block{margin-bottom:1.8rem;}
-.case-label{display:block;font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.45rem;}
+.case-label{display:block;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.45rem;}
 .case-block p{margin:0;color:var(--text2);}
-.modal-desc strong{color:var(--text);font-weight:600;}
 .modal-images{display:flex;flex-direction:column;gap:4px;margin-bottom:3rem;}
-.modal-images img{width:100%;display:block;height:auto;}
-.modal-video-wrap{position:relative;width:100%;aspect-ratio:16/9;margin-bottom:1.2rem;background:#000;overflow:hidden;border:.5px solid rgba(200,169,110,.14);}
+.modal-images img{width:100%;display:block;height:auto;border-radius:8px;}
+.modal-video-wrap{position:relative;width:100%;aspect-ratio:16/9;margin-bottom:1.2rem;background:#000;overflow:hidden;border-radius:8px;border:.5px solid rgba(200,169,110,.14);}
 .modal-video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
-.modal-media-label{font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:2.4rem 0 1rem;}
-.modal-images .modal-video-wrap:last-child{margin-bottom:0;}
+.modal-media-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:2.4rem 0 1rem;}
 .modal-tools{display:flex;flex-wrap:wrap;gap:8px;padding-top:2rem;border-top:.5px solid var(--border);}
-.modal-tool{font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:.5px solid var(--border);padding:5px 14px;}
-.modal-blink{display:inline-flex;gap:6px;margin-top:2rem;font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:.5px solid var(--border);padding-bottom:3px;transition:color .25s,border-color .25s;}
-.modal-blink:hover{color:var(--accent);border-color:var(--accent);}
-.modal-nav{display:flex;justify-content:space-between;align-items:center;margin-top:5rem;padding-top:2rem;border-top:.5px solid var(--border);gap:1rem;}
-.modal-nav-btn{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);background:transparent;border:none;cursor:none;transition:color .25s;padding:0;}
-.modal-nav-btn:hover{color:var(--text);}
-.modal-nav-btn:disabled{opacity:.15;pointer-events:none;}
+.modal-tool{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:.5px solid var(--border);padding:5px 14px;border-radius:4px;}
+
 @media(max-width:1024px){
   nav{padding:1.2rem 2.25rem;}
   .hero,.projects-section,.statement-section,.about-section,.contact-section,section{padding-left:2.25rem;padding-right:2.25rem;}
-  .projects-grid{grid-template-columns:1fr 1fr;max-width:1400px;}
-  .proj-card.featured{grid-column:auto;}
-  .about-section{gap:4rem;}
-  .contact-inner{padding-left:2.25rem;padding-right:2.25rem;}
-  footer{padding-left:2.25rem;padding-right:2.25rem;}
+  .projects-grid{grid-template-columns:1fr 1fr;}
+  .av-split{grid-template-columns:repeat(2,minmax(0,1fr));min-height:auto;padding:32px 2.25rem;}
+  .av-col{min-height:560px;} .av-frame{max-height:430px;width:100%;max-width:260px;}
 }
 @media(max-width:768px){
-  /* HERO MOBILE REFINES */
-  .hero h1{font-size:clamp(2.05rem,7.8vw,3.15rem);line-height:1.08;max-width:96vw;word-break:normal;overflow-wrap:normal;hyphens:none;}.hero h1 br{display:none;}
-  .hero-sub{margin-top:1.2rem;}
-  .hero-content{gap:1.2rem;}
-  .hero-video{opacity:.55;filter:contrast(1.1) brightness(.9) saturate(1.05);} 
-  .hero-overlay{background:linear-gradient(to top,rgba(12,12,11,.65) 0%,rgba(12,12,11,.25) 55%,rgba(12,12,11,.05) 100%);} 
-
-  /* NAV COMPACT */
-  nav{padding:1rem 1.5rem;}
-  .nav-logo img{width:42px;}
-
-  /* CTA SCALE */
-  .primary-btn{padding:12px 22px;font-size:10px;}
-
-  body{cursor:auto;}
-  #cd,#cr{display:none;}
-  a,button,.proj-card,.filter-btn,.tool-tag{cursor:pointer;}
+  .hero h1{font-size:clamp(1.9rem,7.5vw,3rem);line-height:1.1;}
+  body{cursor:auto;} #cd,#cr{display:none;}
   nav{padding:1rem 1.5rem;gap:1rem;align-items:flex-start;}
-  .nav-logo img{width:46px;}
-  .nav-links{gap:.9rem;flex-wrap:wrap;justify-content:flex-end;}
-  .nav-links a,.lang-btn{font-size:10px;}
+  .nav-logo img{width:46px;} .nav-links{gap:.9rem;flex-wrap:wrap;justify-content:flex-end;}
   .hero{min-height:100svh;padding:0 1.5rem 3rem;}
-  .hero-label{font-size:10px;letter-spacing:.18em;margin-bottom:1.2rem;max-width:320px;}
-  .hero h1{font-size:clamp(2.05rem,7.8vw,3.15rem);line-height:1.08;max-width:96vw;}
-  .hero-sub{font-size:1.18rem;line-height:1.68;max-width:100%;margin-top:1.4rem;}
-  .hero-ctas{flex-direction:column;align-items:flex-start;gap:1rem;margin-top:2rem;}
-  .hero-scroll{right:1.5rem;bottom:1.5rem;}
-  .projects-section,section,.about-section,.contact-section{padding:5.5rem 1.5rem;}.projects-section{padding-bottom:3.4rem;}.statement-section{padding:3.4rem 1.5rem 0;}
+  .projects-section,section,.about-section,.contact-section{padding:5.5rem 1.5rem;}
   .projects-grid{grid-template-columns:1fr;gap:6px;max-width:640px;}
-  .proj-card.featured{grid-column:auto;}
-  .proj-card.featured img{aspect-ratio:16/7;}
-  .proj-card-info{opacity:1;transform:translateY(0);}
-  .proj-card-overlay{opacity:1;background:linear-gradient(transparent 45%,rgba(8,8,7,.88) 100%);}
-  .statement-section h2{font-size:clamp(1.55rem,6vw,2.3rem);line-height:1.25;margin-bottom:2.4rem;}
   .about-section{grid-template-columns:1fr;gap:3rem;}
-  .about-left h2{font-size:clamp(3rem,12vw,4.8rem);}
-  .about-bio p{font-size:1.05rem;line-height:1.8;}
-  .contact-inner{padding:4rem 1.5rem 3.6rem;}
-  .contact-headline{font-size:clamp(2.4rem,10vw,4.3rem);line-height:.94;}
-  .contact-sub{max-width:100%;font-size:10px;line-height:1.8;}
+  .contact-headline{font-size:clamp(2.4rem,10vw,4.3rem);}
   .lets-talk-btn{padding:18px 34px;font-size:clamp(1.7rem,8vw,2.6rem);}
-  .contact-socials{gap:.9rem;}
-  .modal{padding:7rem 1.5rem 4rem;}
-  .modal-close{top:1.25rem;right:1.5rem;}
-  .modal-nav{flex-direction:column;align-items:flex-start;}
   footer{padding:1.5rem;flex-direction:column;align-items:flex-start;}
+  
+  .av-wrap{padding:60px 1.5rem 26px;} .av-title{font-size:2.2rem;line-height:1.05;}
+  .av-split{
+    display:flex;min-height:auto;padding:24px 1.5rem 34px;gap:16px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding-left:1.5rem;-webkit-overflow-scrolling:touch;
+  }
+  .av-split::-webkit-scrollbar{display:none;} .av-split{scrollbar-width:none;} .av-split::after{display:none;}
+  .av-col{flex:0 0 min(82vw,340px);min-height:520px;border-radius:0px;gap:18px;scroll-snap-align:center;transform:none !important;box-shadow:none !important;}
+  .av-frame{width:100%;max-width:235px;max-height:355px;border-radius:0px !important;transform:none !important;filter:grayscale(0%) !important;opacity:1 !important;}
+  .av-col:hover .av-frame{transform:none !important;}
 }
-@media(max-width:480px){
-  nav{padding:.9rem 1rem;}
-  .nav-logo img{width:50px;}
-  .nav-links{gap:.65rem;}
-  .hero{padding:0 1rem 2.4rem;}
-  .hero-label{font-size:9px;letter-spacing:.14em;max-width:260px;}
-  .hero h1{font-size:clamp(1.85rem,7.2vw,2.55rem);line-height:1.12;max-width:96vw;}
-  .hero-sub{font-size:1.08rem;line-height:1.65;}
-  .btn-main,.btn-ghost{font-size:10px;}
-  .hero-scroll{display:none;}
-  .projects-section,section,.about-section,.contact-section{padding:4.5rem 1rem;}.projects-section{padding-bottom:3rem;}.statement-section{padding:3rem 1rem 0;}
-  .filters{gap:.4rem;}
-  .filter-btn{font-size:9px;padding:7px 12px;}
-  .proj-card-tag{top:.75rem;left:.75rem;}
-  .proj-card-info{padding:1.2rem;}
-  .sec-title{margin-bottom:2.5rem;}
-  .statement-section h2{font-size:1.45rem;margin-bottom:2.2rem;}
-  .about-badge{font-size:9px;padding:7px 12px;}
-  .about-redes-link{padding:1rem 0;}
-  .about-redes-name{font-size:1.1rem;}
-  .contact-inner{padding:3.6rem 1rem 3.2rem;}
-  .contact-headline{font-size:clamp(2.2rem,11vw,3.2rem);}
-  .lets-talk-btn{padding:16px 28px;font-size:1.8rem;}
-  .contact-socials{gap:.7rem;}
-  .contact-socials a{font-size:9px;}
-  .modal{padding:6rem 1rem 3rem;}
-  .modal-title{font-size:clamp(2.2rem,12vw,3.4rem);}
-  .modal-desc{font-size:1.05rem;line-height:1.75;}
-  .modal-meta{gap:1.5rem;}
-  .modal-close{right:1rem;}
-  footer{padding:1.25rem 1rem;}
-  footer span{font-size:9px;}
+/* INTRO / PRELOADER — círculo tipo "iris" que se expande y revela la web; el logo permanece fijo y nítido */
+#preloader{position:fixed;inset:0;z-index:99999;background:var(--bg);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.preloader-anim{animation:plOverlayFade .5s ease 1s forwards;}
+@keyframes plOverlayFade{to{opacity:0;}}
+#preloader.hide{opacity:0;pointer-events:none;}
+#preloader-circle{position:absolute;left:50%;top:50%;width:14px;height:14px;border-radius:50%;background:var(--accent);transform:translate(-50%,-50%);opacity:.92;will-change:width,height;}
+.preloader-anim #preloader-circle{animation:plCircleExpand 1.05s cubic-bezier(.76,0,.24,1) .15s forwards;}
+@keyframes plCircleExpand{
+  0%{width:14px;height:14px;opacity:.92;}
+  100%{width:300vmax;height:300vmax;opacity:.92;}
 }
+#preloader-logo{position:relative;width:64px;height:auto;opacity:0;transform:scale(.92);z-index:2;will-change:opacity,transform;}
+.preloader-anim #preloader-logo{animation:plLogoFix .5s ease .1s forwards, plLogoOut .3s ease .85s forwards;}
+@keyframes plLogoFix{to{opacity:1;transform:scale(1);}}
+@keyframes plLogoOut{to{opacity:0;}}
+@media(max-width:768px){#preloader-logo{width:50px;}}
+/* BOTÓN FLOTANTE WHATSAPP */
+#wa-float{position:fixed;bottom:2rem;right:2rem;z-index:9999;display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:50%;background:#25D366;box-shadow:0 4px 20px rgba(37,211,102,.35);text-decoration:none;transition:transform .3s cubic-bezier(.23,1,.32,1),box-shadow .3s ease;opacity:0;animation:waFadeIn .5s ease 2s forwards;}
+#wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.5);}
+#wa-float svg{width:26px;height:26px;fill:#fff;}
+@keyframes waFadeIn{to{opacity:1;}}
+@media(max-width:768px){#wa-float{bottom:1.4rem;right:1.4rem;width:48px;height:48px;}#wa-float svg{width:24px;height:24px;}}
 </style>
 </head>
 <body>
-<div id="curtain"><div id="ci"></div></div>
-<div id="cd"></div><div id="cr"></div>
+
+<div id="preloader" class="preloader-anim">
+  <div id="preloader-circle"></div>
+  <img id="preloader-logo" src="https://res.cloudinary.com/dxpap6uiq/image/upload/v1775855727/angelcharr_logo_xchyym.png" alt="Ángel Charr">
+</div>
+<script>document.body.style.overflow="hidden";</script>
+
+<div id="modal-curtain"><div id="modal-ci"></div></div>
+<div id="cd"></div><div id="cr"><span>click sound</span></div>
 
 <nav>
   <a href="#hero" class="nav-logo"><img src="https://res.cloudinary.com/dxpap6uiq/image/upload/v1775855727/angelcharr_logo_xchyym.png" alt="Angel Charr"></a>
@@ -309,9 +367,8 @@ footer span{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.12em;
 </nav>
 
 <section class="hero" id="hero">
-  <video class="hero-video" id="heroVid" autoplay muted loop playsinline>
-    <source src="https://res.cloudinary.com/dxpap6uiq/video/upload/v1774470677/BUENA_VIDA_BEACH_FESTIVAL_2023.mp4" type="video/mp4">
-  </video>
+  <!-- TRANSFORMACIÓN APLICADA: Inyección de parámetros de compresión inteligentes q_auto (Calidad automática) y f_auto (Formato moderno WebM/mp4 según el navegador) para reducir el peso un 70% sin perder nitidez -->
+  <video class="hero-video" id="heroVid" muted loop playsinline preload="auto" src="https://res.cloudinary.com/dxpap6uiq/video/upload/f_auto,q_auto/v1774470677/BUENA_VIDA_BEACH_FESTIVAL_2023.mp4" poster="https://res.cloudinary.com/dxpap6uiq/image/upload/f_auto,q_auto,w_1920/v1778377194/BVB_qzanrg.webp"></video>
   <div class="hero-overlay"></div>
   <div class="hero-content" id="heroContent">
     <div class="hero-label" id="heroLabel">Diseñador gráfico, director visual y realizador audiovisual — Bogotá, Colombia</div>
@@ -350,10 +407,56 @@ footer span{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.12em;
       <a href="https://www.behance.net/angelcharr" target="_blank" class="all-projects-btn" id="allProjectsBtn">All Projects</a>
     </div>
   </div>
+
+<div class="av-wrap reveal">
+  <div class="av-label" data-es="PRODUCCIÓN AUDIOVISUAL" data-en="AUDIOVISUAL PRODUCTION">PRODUCCIÓN AUDIOVISUAL</div>
+  <h2 class="av-title" id="avSectionTitle">Campañas promocionales para <em>eventos masivos</em></h2>
+  <div class="av-sound-note" id="avSoundNote" data-es="Pasa el cursor por encima para reproducir sonido de muestra. Un clic dentro de la sección activa el audio inmersivo general." data-en="Hover to sample audio. Click anywhere inside the section to trigger the main immersive sound design.">Pasa el cursor por encima para reproducir sonido de muestra. Un clic dentro de la sección activa el audio inmersivo general.</div>
+</div>
+
+<section class="av-split" id="avSplit">
+  <div class="av-col" data-artist="cepeda">
+    <div class="av-frame">
+      <video autoplay muted loop playsinline preload="none" src="https://res.cloudinary.com/dxpap6uiq/video/upload/v1779080464/Andre%CC%81s_Cepeda_s3zsag.mp4"></video>
+    </div>
+    <div class="av-col-txt"><h3>Andrés Cepeda</h3><p data-es="Tour Promo & Aftermovie" data-en="Tour Promo & Aftermovie">Tour Promo & Aftermovie</p></div>
+  </div>
+  <div class="av-col" data-artist="habif">
+    <div class="av-frame">
+      <video autoplay muted loop playsinline preload="none" src="https://res.cloudinary.com/dxpap6uiq/video/upload/v1779080464/Andre%CC%81s_Cepeda_s3zsag.mp4"></video>
+    </div>
+    <div class="av-col-txt"><h3>Daniel Habif</h3><p data-es="Motion Graphics & Teasers" data-en="Motion Graphics & Teasers">Motion Graphics & Teasers</p></div>
+  </div>
+  <div class="av-col" data-artist="kany">
+    <div class="av-frame">
+      <video autoplay muted loop playsinline preload="none" src="https://res.cloudinary.com/dxpap6uiq/video/upload/v1779080464/Andre%CC%81s_Cepeda_s3zsag.mp4"></video>
+    </div>
+    <div class="av-col-txt"><h3>Kany García</h3><p data-es="Lanzamientos & Cobertura" data-en="Launches & Coverage">Lanzamientos & Cobertura</p></div>
+  </div>
+  <div class="av-col" data-artist="buenavida">
+    <div class="av-frame">
+      <video autoplay muted loop playsinline preload="none" src="https://res.cloudinary.com/dxpap6uiq/video/upload/v1774470677/BUENA_VIDA_BEACH_FESTIVAL_2023.mp4"></video>
+    </div>
+    <div class="av-col-txt"><h3>Buena Vida Fest</h3><p data-es="Aftermovie Oficial" data-en="Official Aftermovie">Aftermovie Oficial</p></div>
+  </div>
+</section>
+
+<div class="av-modal" id="avModal">
+  <div class="av-modal-inner">
+    <div class="av-modal-head">
+      <div class="av-modal-title"><h2 id="avTitle">Andrés Cepeda</h2><p id="avSubtitle">Tour Promo & Aftermovie</p></div>
+      <button class="av-close" id="avClose" data-es="✕ Cerrar" data-en="✕ Close">✕ Cerrar</button>
+    </div>
+    <div class="av-section">
+      <h3 id="avVideoLabel" data-es="Video Principal" data-en="Main Video">Video Principal</h3>
+      <div class="av-aftermovie"><video id="avAfter" controls preload="metadata" playsinline></video></div>
+    </div>
+  </div>
+</div>
 </section>
 
 <section class="statement-section reveal" id="portafolio">
-  <h2 id="stmtText">Ocho años construyendo marcas e historias visuales <em>desde Colombia,</em> con una mirada global. Trabajo con marcas gastronómicas, hoteleras, musicales y corporativas que buscan ser recordadas por lo que son, no solo por lo que hacen.</h2>
+  <h2 id="stmtText">Ocho años construyendo marcas e historias visuales desde Colombia, con una mirada global. Trabajo con marcas gastronómicas, hoteleras, musicales y corporativas que <em>buscan ser recordadas por lo que son, no solo por lo que hacen.</em></h2>
   <div class="skills-ticker"><div class="skills-inner" id="skillsInner"></div></div>
 </section>
 
@@ -365,7 +468,7 @@ footer span{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.12em;
       <p>Soy diseñador gráfico, director visual y realizador audiovisual. Mi trabajo se mueve entre la identidad de marca, la fotografía y la construcción de universos visuales con intención.</p>
       <p>He desarrollado proyectos para marcas del sector hotelero, gastronómico, cultural y corporativo, construyendo sistemas visuales que buscan equilibrio entre sensibilidad, claridad y carácter.</p>
       <p>Más que diseñar piezas, me interesa construir presencias: marcas que se sientan coherentes, memorables y honestas en cada punto de contacto.</p>
-      <p><strong>Diseño para que una marca no solo se vea bien, sino que se sienta verdadera.</strong></p>
+      <p><strong>Diseño para que una marca no solo se vea bien, sino que se sientan verdaderas.</strong></p>
     </div>
     <div class="about-tools">
       <span class="tool-tag">Branding</span><span class="tool-tag">Dirección visual</span><span class="tool-tag">Editorial</span>
@@ -378,24 +481,20 @@ footer span{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.12em;
     <a href="https://www.instagram.com/angelcharr/" target="_blank" class="about-redes-link"><span class="about-redes-name">Instagram</span><span class="about-redes-meta">@angelcharr</span><span class="about-redes-arrow">&#8594;</span></a>
     <a href="https://www.behance.net/angelcharr" target="_blank" class="about-redes-link"><span class="about-redes-name">Behance</span><span class="about-redes-meta">Portafolio</span><span class="about-redes-arrow">&#8594;</span></a>
     <a href="https://vimeo.com/angelcharr22" target="_blank" class="about-redes-link"><span class="about-redes-name">Vimeo</span><span class="about-redes-meta">Audiovisual</span><span class="about-redes-arrow">&#8594;</span></a>
-    <a href="https://co.pinterest.com/angelchavezarroyo/_created/" target="_blank" class="about-redes-link"><span class="about-redes-name">Pinterest</span><span class="about-redes-meta">@angelcharr</span><span class="about-redes-arrow">&#8594;</span></a>
+    <a href="https://co.pinterest.com/angelcharr" target="_blank" class="about-redes-link"><span class="about-redes-name">Pinterest</span><span class="about-redes-meta">@angelcharr</span><span class="about-redes-arrow">&#8594;</span></a>
     <a href="mailto:angelchavezarroyo@gmail.com" class="about-redes-link"><span class="about-redes-name">Email</span><span class="about-redes-meta">angelchavezarroyo@gmail.com</span><span class="about-redes-arrow">&#8594;</span></a>
   </div>
 </section>
 
-<section class="manifesto-section reveal">
-  <p data-es="El diseño no es solo estética. Es una forma de dar dirección a las marcas." data-en="Design is not just aesthetics. It is a way of giving direction to brands.">El diseño no es solo estética. Es una forma de dar dirección a las marcas.</p>
-</section>
-
 <section class="contact-section" id="contacto">
   <div class="contact-inner reveal">
-    <p class="contact-eyebrow">¿Listo para empezar?</p>
+    <p class="contact-eyebrow" data-es="¿Listo para empezar?" data-en="Ready to start?">¿Listo para empezar?</p>
     <h2 class="contact-headline" id="contactTitle">¿Tienes un proyecto<br>en <em>mente?</em></h2>
     <p class="contact-availability" data-es="Disponible para proyectos seleccionados." data-en="Available for selected projects.">Disponible para proyectos seleccionados.</p>
     <p class="contact-sub" id="contactSub">Si tu marca necesita una identidad más clara, una presencia más sólida o una dirección visual con intención, conversemos.</p>
     <div class="lets-talk-wrap" id="letsTalkWrap">
       <canvas class="lets-talk-canvas" id="orbitCanvas"></canvas>
-      <a href="mailto:angelchavezarroyo@gmail.com" class="lets-talk-btn" id="letsTalkBtn">
+      <a href="https://api.whatsapp.com/send?phone=573157128926&text=%C2%A1Hola%2C%20Angel!%20Vi%20tu%20portafolio%20web%20y%20me%20gustar%C3%ADa%20cotizar%20un%20proyect." target="_blank" rel="noopener" class="lets-talk-btn" id="letsTalkBtn">
         <span class="lets-talk-text">Hablemos</span>
         <span class="lets-talk-arrow">&#8594;</span>
       </a>
@@ -403,7 +502,8 @@ footer span{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.12em;
     <div class="contact-socials">
       <a href="https://www.instagram.com/angelcharr/" target="_blank">Instagram</a><span>&#183;</span>
       <a href="https://www.behance.net/angelcharr" target="_blank">Behance</a><span>&#183;</span>
-      <a href="https://vimeo.com/angelcharr22" target="_blank">Vimeo</a>
+      <a href="https://vimeo.com/angelcharr22" target="_blank">Vimeo</a><span>&#183;</span>
+      <a href="https://co.pinterest.com/angelchavezarroyo/_created/" target="_blank">Pinterest</a>
     </div>
   </div>
 </section>
@@ -419,27 +519,40 @@ footer span{font-family:"DM Mono",monospace;font-size:10px;letter-spacing:.12em;
 </div>
 
 <script>
-// CURSOR
-var cd=document.getElementById("cd"),cr=document.getElementById("cr"),mx=0,my=0,rx=0,ry=0;
+// MOTOR CURSOR CON TRACKING DE TEXTO INTEGADO
+var cd=document.getElementById("cd"),cr=document.getElementById("cr"),crTxt=cr.querySelector("span"),mx=0,my=0,rx=0,ry=0;
 document.addEventListener("mousemove",function(e){mx=e.clientX;my=e.clientY;cd.style.left=mx+"px";cd.style.top=my+"px";});
 (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cr.style.left=rx+"px";cr.style.top=ry+"px";requestAnimationFrame(loop);})();
+
 document.querySelectorAll("a,button,input,textarea,.proj-card,.filter-btn,.tool-tag").forEach(function(el){
   el.addEventListener("mouseenter",function(){cr.style.width="44px";cr.style.height="44px";cr.style.borderColor="rgba(200,169,110,.72)";});
   el.addEventListener("mouseleave",function(){cr.style.width="32px";cr.style.height="32px";cr.style.borderColor="rgba(200,169,110,.32)";});
 });
-// CURTAIN
-var curtain=document.getElementById("curtain");
-function coverCurtain(cb){curtain.style.pointerEvents="all";curtain.classList.remove("out");curtain.classList.add("cover");setTimeout(cb,680);}
-function revealCurtain(){curtain.classList.remove("cover");curtain.classList.add("out");setTimeout(function(){curtain.style.pointerEvents="none";},850);}
-// LOAD
-window.addEventListener("load",function(){
-  curtain.style.pointerEvents="none";curtain.classList.add("out");
-  setTimeout(function(){
-    if(heroVid){heroVid.style.opacity=.46;}
-    document.getElementById("heroLabel").classList.add("in");splitText();
-    setTimeout(function(){document.getElementById("heroSub").classList.add("in");document.getElementById("heroCtas").classList.add("in");document.getElementById("heroScroll").classList.add("in");},700);
-  },900);
+
+// MODAL CURTAIN CONTROLLER
+var modalCurtain=document.getElementById("modal-curtain");
+function coverCurtain(cb){modalCurtain.className="cover";setTimeout(cb,680);}
+function revealCurtain(){modalCurtain.className="out";}
+
+// DISPARADOR INMEDIATO SIN CORTINAS NI DELAYS ARTIFICIALES
+document.addEventListener("DOMContentLoaded",function(){
+  document.getElementById("heroLabel").classList.add("in");
+  splitText();
+  document.getElementById("heroSub").classList.add("in");
+  document.getElementById("heroCtas").classList.add("in");
+  document.getElementById("heroScroll").classList.add("in");
+
+  var heroVid = document.getElementById("heroVid");
+  if(heroVid){
+    if(heroVid.readyState >= 3) {
+      heroVid.classList.add("loaded");
+    } else {
+      heroVid.addEventListener("canplaythrough", function() { heroVid.classList.add("loaded"); });
+    }
+    heroVid.play().catch(function(){});
+  }
 });
+
 // SPLIT TEXT
 function splitText(){
   var h1=document.getElementById("heroTitle");if(!h1)return;
@@ -450,7 +563,7 @@ function splitText(){
       if(!token)return;
       if(/^\s+$/.test(token)){out+=" ";return;}
       out+='<span class="word">';
-      token.split("").forEach(function(c){out+='<span class="ch" style="transition-delay:'+delay+'ms">'+c+'</span>';delay+=28;});
+      token.split("").forEach(function(c){out+='<span class="ch" style="transition-delay:'+delay+'ms">'+c+'</span>';delay+=18;});
       out+='</span>';
     });
   }
@@ -458,55 +571,55 @@ function splitText(){
     list.forEach(function(n){
       if(n.nodeType===3){renderText(n.textContent);}
       else if(n.nodeName==="BR"){out+="<br>";}
-      else if(n.nodeName==="EM"){
-        out+="<em>";renderText(n.textContent);out+="</em>";
-      }
+      else if(n.nodeName==="EM"){out+="<em>";renderText(n.textContent);out+="</em>";}
     });
   }
   renderNodes(nodes);
   h1.innerHTML=out;
   requestAnimationFrame(function(){requestAnimationFrame(function(){document.querySelectorAll("#heroTitle .ch").forEach(function(c){c.classList.add("in");});});});
 }
-// PARALLAX
+
+// PARALLAX SUTIL HERO
 var heroVid=document.getElementById("heroVid"),heroContent=document.getElementById("heroContent"),heroScrollEl=document.getElementById("heroScroll"),raf=false;
 window.addEventListener("scroll",function(){
   if(raf)return;raf=true;
   requestAnimationFrame(function(){
     var sy=window.scrollY;
-    if(heroVid){heroVid.style.transform="translateY("+(sy*.38)+"px)";heroVid.style.opacity=Math.max(.34,.46-sy/1800);}
+    if(heroVid){heroVid.style.transform="translateY("+(sy*.38)+"px)";}
     if(heroContent)heroContent.style.transform="translateY("+(sy*.1)+"px)";
     if(heroScrollEl)heroScrollEl.style.opacity=Math.max(0,1-sy/220);
     raf=false;
   });
 });
 
-// TICKERS
+// TICKERS CONTENT
 var tickerItems=["Instagram","Behance","Vimeo","Diseño Gráfico","Realización Audiovisual","Cartagena — Bogotá","Branding","Fotografía","Cine","Dirección Visual","Editorial","Social & Campaigns"];
 var track=document.getElementById("tickerTrack"),tickerHTML="";
 for(var t=0;t<3;t++){tickerItems.forEach(function(i){tickerHTML+='<span class="ticker-item">'+i+'</span><span class="ticker-item ticker-sep">·</span>';});}
 if(track)track.innerHTML=tickerHTML;
+
 var skillItems=["Identidad de marca","Dirección visual","Diseño editorial","Fotografía","Realización audiovisual","Branding hotelero","Packaging","Campañas digitales","Contenido social","Consultoría visual","Hospitality","Cultura & música"];
 var si=document.getElementById("skillsInner"),sHTML="";
 for(var s=0;s<3;s++){skillItems.forEach(function(sk){sHTML+='<span class="skill-item"><b>'+sk+'</b></span><span class="skill-sep">·</span>';});}
 if(si)si.innerHTML=sHTML;
 
-// REVEAL
+// OBSERVADOR REVEALS
 var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add("visible");});},{threshold:.07});
 document.querySelectorAll(".reveal").forEach(function(el){obs.observe(el);});
 
-// SMOOTH SCROLL
+// SMOOTH SCROLL NATIVO EN EL ENLACE
 document.querySelectorAll("a[href^='#']").forEach(function(a){a.addEventListener("click",function(e){var t=document.querySelector(a.getAttribute("href"));if(t){e.preventDefault();t.scrollIntoView({behavior:"smooth"});}});});
 
-// PROJECTS DATA
+// PORTAFOLIO PROYECTOS
 var PROJECTS=[];
-PROJECTS[0]={title:"Don Ignazio",titleHtml:"Don <em>Ignazio</em>",client:"Faranda Hotels & Resorts",year:"2026",cat:"Branding",tools:["Editorial Design","Photography","Restaurant Identity"],desc:"Don Ignazio es un restaurante italiano contemporáneo concebido para ofrecer una experiencia gastronómica refinada y sobria. El proyecto incluyó el diseño editorial del menú principal y la carta de vinos como elementos clave de su identidad visual, junto con la producción fotográfica del restaurante.<br><br>El lenguaje visual se desarrolló para transmitir elegancia, sobriedad y atemporalidad, permitiendo que la tipografía, la composición y la materialidad comunicaran la marca con sutileza.<br><br>El resultado es un sistema editorial coherente que refuerza la identidad del restaurante y eleva cada punto de contacto con el cliente.",media:[{type:"image",src:"https://mir-s3-cdn-cf.behance.net/project_modules/1400/cc5954244808595.69a04fcdd9386.gif"},{type:"image",src:"https://res.cloudinary.com/dxpap6uiq/image/upload/v1777756746/1_tgmsd6.png"},{type:"image",src:"https://res.cloudinary.com/dxpap6uiq/image/upload/v1775855770/DI-CARATULA_qkgfi1.png"},{type:"image",src:"https://res.cloudinary.com/dxpap6uiq/image/upload/v1777756747/3_umcigj.webp"},{type:"image",src:"https://res.cloudinary.com/dxpap6uiq/image/upload/v1777756747/4_zopba9.webp"},{type:"image",src:"https://res.cloudinary.com/dxpap6uiq/image/upload/v1777756747/5_c4mida.webp"}]};
-PROJECTS[1]={title:"NUNA",titleHtml:"<em>NUNA</em>",client:"Faranda Collection Medellín",year:"2025",cat:"Branding",tools:["Concept","Visual Identity","Graphic System"],desc:"NUNA es el restaurante del Hotel Collection Medellín, desarrollado como una propuesta de cocina colombiana contemporánea dentro del universo Faranda.<br><br>El proyecto parte de la conceptualización del nombre y se extiende a la creación de su identidad visual, construyendo un lenguaje gráfico que interpreta lo local desde una mirada actual. La dirección visual se apoya en elementos naturales y simbólicos, traducidos en un sistema que equilibra tradición y contemporaneidad.<br><br>El resultado es una marca sólida y reconocible, pensada para comunicar con claridad, coherencia y carácter en cada uno de sus puntos de contacto.",media:[{type:"image",src:"https://mir-s3-cdn-cf.behance.net/project_modules/1400/310c13239483365.6929f04426fd1.gif"},{type:"image",src:"https://res.cloudinary.com/dxpap6uiq/image/upload/v1778377070/NUNA_qzoyms.webp"},{type:"image",src:"https://mir-s3-cdn-cf.behance.net/project_modules/1400/8f2e39239483365.6929f1d2294a7.gif"}]};
+PROJECTS[0]={title:"Don Ignazio",titleHtml:"Don <em>Ignazio</em>",client:"Faranda Hotels & Resorts",year:"2026",cat:"Branding",tools:["Editorial Design","Photography","Restaurant Identity"],desc:"Don Ignazio es un restaurante italiano contemporáneo concebido para ofrecer una experiencia gastronomica refinada y sobria. El proyecto incluyó el diseño editorial del menú principal y la carta de vinos como elementos clave de su identidad visual, junto con la producción fotográfica del restaurante.<br><br>El lenguaje visual se desarrolló para transmitir elegancia, sobriedad y atemporalidad, permitiendo que la tipografía, la composición y la materialidad comunicaran la marca con sutileza.<br><br>El resultado es un sistema editorial coherente que refuerza la identidad del restaurante y eleva cada punto de contacto con el cliente.",media:[{type:"image",src:"https://mir-s3-cdn-cf.behance.net/project_modules/1400/cc5954244808595.69a04fcdd9386.gif"},{type:"image",src:"https://res.cloudinary.com/dxpap6uiq/image/upload/v1777756746/1_tgmsd6.png"},{type:"image",src:"https://res.cloudinary.com/dxpap6uiq/image/upload/v1775855770/DI-CARATULA_qkgfi1.png"},{type:"image",src:"https://res.cloudinary.com/dxpap6uiq/image/upload/v1777756747/3_umcigj.webp"},{type:"image",src:"https://res.cloudinary.com/dxpap6uiq/image/upload/v1777756747/4_zopba9.webp"},{type:"image",src:"https://res.cloudinary.com/dxpap6uiq/image/upload/v1777756747/5_c4mida.webp"}]};
+PROJECTS[1]={title:"NUNA",titleHtml:"<em>NUNA</em>",client:"Faranda Collection Medellín",year:"2025",cat:"Branding",tools:["Concept","Visual Identity","Graphic System"],desc:"NUNA es el restaurante del Hotel Collection Medellín, desarrollado como una propuesta de cocina colombiana contemporánea dentro del universo Faranda.<br><br>El proyecto parte de la conceptualización del nombre y se extiende a la creación de su identidad visual, construyendo un lenguaje gráfico que interpreta lo local desde una mirada actual. La dirección visual se apoya en elementos naturales and simbólicos, traducidos en un sistema que equilibra tradición y contemporaneidad.<br><br>El resultado es una marca sólida y reconocible, pensada para comunicar con claridad, coherencia y carácter en cada uno de sus puntos de contacto.",media:[{type:"image",src:"https://mir-s3-cdn-cf.behance.net/project_modules/1400/310c13239483365.6929f04426fd1.gif"},{type:"image",src:"https://res.cloudinary.com/dxpap6uiq/image/upload/f_auto,q_auto,w_800/v1778377070/NUNA_qzoyms.webp"},{type:"image",src:"https://mir-s3-cdn-cf.behance.net/project_modules/1400/8f2e39239483365.6929f1d2294a7.gif"}]};
 PROJECTS[8]={title:"Festival Voces Del Jazz y del Caribe 2024",titleHtml:"Festival Voces <em>Del Jazz</em>",client:"Fundación Cultural Voces Del Jazz",year:"2024",cat:"Campaign",tools:["Visual Identity","Campaign Graphics","Digital Adaptations"],desc:"Voces del Jazz es un proyecto visual desarrollado para un evento musical, enfocado en construir una identidad gráfica con ritmo, carácter y coherencia.<br><br>El trabajo traduce elementos sonoros en un lenguaje visual dinámico, adaptable a distintos formatos de comunicación.<br><br>El resultado es un sistema visual flexible que mantiene consistencia sin perder expresividad.",media:[{type:"image",src:"https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/a5389a63779015.670991a501b77.png"}]};
 PROJECTS[9]={title:"Eclipse — AB InBev",titleHtml:"Eclipse — <em>AB InBev</em>",client:"AB InBev",year:"2023",cat:"Corporate",tools:["Visual Design","Audiovisual Production","Corporate Communication"],desc:"Durante más de dos años, desarrollé contenido visual y audiovisual para Eclipse (AB InBev), creando piezas para redes sociales, presentaciones corporativas, webinars y videos institucionales.<br><br>Un trabajo continuo enfocado en mantener coherencia visual, claridad narrativa y consistencia en todos los puntos de contacto de la marca.<br><br>El proyecto combina producción audiovisual, diseño y comunicación estratégica en un entorno corporativo global.",media:[{type:"image",src:"https://res.cloudinary.com/dxpap6uiq/image/upload/v1778376908/AB_INBEV_heduzm.webp"},{type:"vimeo",id:"903532385"},{type:"vimeo",id:"903530819"},{type:"vimeo",id:"903496711"}]};
 PROJECTS[10]={title:"Maando",titleHtml:"<em>Maando</em>",client:"Maando",year:"2023",cat:"Digital",tools:["Visual Design","Digital Content","Audiovisual Production"],desc:"Maando es una plataforma colaborativa de envíos y favores entre personas, diseñada para conectar solicitudes de entrega con viajeros en distintos lugares del mundo.<br><br>El proyecto se centra en el desarrollo y adaptación del lenguaje visual de la marca a múltiples formatos de comunicación, desde contenido digital hasta piezas audiovisuales.<br><br>El trabajo consistió en construir y sostener una identidad coherente, manteniendo claridad visual y una presencia reconocible en cada punto de contacto.<br><br>Más que piezas aisladas, el enfoque estuvo en dar continuidad a la marca, traduciendo su lógica de movilidad y colaboración en un sistema visual consistente.",media:[{type:"image",src:"https://res.cloudinary.com/dxpap6uiq/image/upload/v1778431872/maando_vcy8zy.webp"},{type:"vimeo",id:"848500497"},{type:"vimeo",id:"848522183"},{type:"vimeo",id:"848520627"},{type:"vimeo",id:"848504646"}]};
 PROJECTS[11]={title:"BVB — Buena Vida Beach",titleHtml:"BVB — Buena Vida <em>Beach</em>",client:"Buena Vida Beach",year:"2023",cat:"Festival",tools:["Visual Direction","Event Communication","Digital Campaign"],desc:"Buena Vida Beach es un evento experiencial que combina música, cultura y estilo de vida en un entorno de playa, construido alrededor de una identidad vibrante y social.<br><br>El proyecto se centra en la dirección visual y desarrollo de piezas gráficas para comunicación digital, explorando un lenguaje visual dinámico que conecta con la energía del evento y su comunidad.<br><br>El trabajo traduce ritmo, color y atmósfera en un sistema visual adaptable, manteniendo coherencia en distintos formatos y puntos de contacto.<br><br>Más que piezas aisladas, el enfoque busca construir una experiencia visual que acompañe y amplifique la esencia del evento.",media:[{type:"image",src:"https://res.cloudinary.com/dxpap6uiq/image/upload/v1778377194/BVB_qzanrg.webp"},{type:"vimeo",id:"1190837249"},{type:"vimeo",id:"383410251"},{type:"vimeo",id:"363850110"}]};
 
-// MODAL
+// MODAL CONTROLLER
 var curIdx=0;
 function openModal(idx){if(!PROJECTS[idx])return;coverCurtain(function(){curIdx=idx;renderModal(PROJECTS[idx]);document.getElementById("modalOverlay").classList.add("open");document.body.style.overflow="hidden";document.getElementById("modalOverlay").scrollTop=0;revealCurtain();});}
 function closeModal(){coverCurtain(function(){document.getElementById("modalOverlay").classList.remove("open");document.body.style.overflow="";document.querySelectorAll(".modal-video-wrap iframe").forEach(function(i){i.src="";});revealCurtain();});}
@@ -518,18 +631,217 @@ document.getElementById("modalOverlay").addEventListener("click",handleOvClick);
 document.getElementById("modalClose").addEventListener("click",closeModal);
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&document.getElementById("modalOverlay").classList.contains("open"))closeModal();});
 
-// CONTACT HOVER
+// CONTACT HOVER BACKGROUND
 var cSec=document.getElementById("contacto"),ltW=document.getElementById("letsTalkWrap");
 if(ltW&&cSec){ltW.addEventListener("mouseenter",function(){cSec.classList.add("hovered");});ltW.addEventListener("mouseleave",function(){cSec.classList.remove("hovered");});}
 
-// TRAZO LUMINOSO
-function setupOrbit(btnId,canvasId,opts){var btn=document.getElementById(btnId),canvas=document.getElementById(canvasId);if(!btn||!canvas)return;opts=opts||{};var ctx=canvas.getContext("2d"),angle=0,pathPad=opts.pathPad||6,glow=opts.glow||18,totalPad=pathPad+glow,trailRatio=opts.trailRatio||.28,speed=opts.speed||.0025;function resize(){var r=btn.getBoundingClientRect(),dpr=window.devicePixelRatio||1;var cw=r.width+totalPad*2,ch=r.height+totalPad*2;canvas.width=cw*dpr;canvas.height=ch*dpr;canvas.style.width=cw+"px";canvas.style.height=ch+"px";ctx.setTransform(1,0,0,1,0,0);ctx.scale(dpr,dpr);canvas._cw=cw;canvas._ch=ch;canvas._pW=r.width+pathPad*2;canvas._pH=r.height+pathPad*2;}function gp(W,H,rx,dist,perim,sX,sY){if(dist<0)dist+=perim;dist=dist%perim;var d=dist,aR=Math.PI/2*rx;if(d<=sX)return{x:rx+d,y:0};d-=sX;if(d<=aR){var a=-Math.PI/2+(d/aR)*(Math.PI/2);return{x:W-rx+Math.cos(a)*rx,y:rx+Math.sin(a)*rx};}d-=aR;if(d<=sY)return{x:W,y:rx+d};d-=sY;if(d<=aR){var a2=(d/aR)*(Math.PI/2);return{x:W-rx+Math.cos(a2)*rx,y:H-rx+Math.sin(a2)*rx};}d-=aR;if(d<=sX)return{x:W-rx-d,y:H};d-=sX;if(d<=aR){var a3=Math.PI/2+(d/aR)*(Math.PI/2);return{x:rx+Math.cos(a3)*rx,y:H-rx+Math.sin(a3)*rx};}d-=aR;if(d<=sY)return{x:0,y:H-rx-d};d-=sY;var a4=Math.PI+(d/aR)*(Math.PI/2);return{x:rx+Math.cos(a4)*rx,y:rx+Math.sin(a4)*rx};}function draw(){var pW=canvas._pW,pH=canvas._pH;if(!pW||!pH){requestAnimationFrame(draw);return;}ctx.clearRect(0,0,canvas._cw,canvas._ch);ctx.save();ctx.translate(glow,glow);var rx=pH/2,sX=pW-2*rx,sY=Math.max(0,pH-2*rx),perim=2*sX+2*sY+2*Math.PI*rx,trailLen=perim*trailRatio,headDist=angle*perim;ctx.beginPath();ctx.moveTo(rx,0);ctx.lineTo(pW-rx,0);ctx.arcTo(pW,0,pW,rx,rx);ctx.lineTo(pW,pH-rx);ctx.arcTo(pW,pH,pW-rx,pH,rx);ctx.lineTo(rx,pH);ctx.arcTo(0,pH,0,pH-rx,rx);ctx.lineTo(0,rx);ctx.arcTo(0,0,rx,0,rx);ctx.closePath();ctx.strokeStyle="rgba(200,169,110,0.06)";ctx.lineWidth=1;ctx.stroke();for(var i=40;i>=0;i--){var t=i/40,dist=headDist-t*trailLen;if(dist<0)dist+=perim;var pt=gp(pW,pH,rx,dist,perim,sX,sY),pt2=gp(pW,pH,rx,dist-perim/200,perim,sX,sY);ctx.beginPath();ctx.moveTo(pt2.x,pt2.y);ctx.lineTo(pt.x,pt.y);ctx.strokeStyle="rgba(240,200,120,"+((1-t)*(1-t)*.9).toFixed(3)+")";ctx.lineWidth=2+(1-t)*2;ctx.lineCap="round";ctx.stroke();}var head=gp(pW,pH,rx,headDist,perim,sX,sY),glowGrad=ctx.createRadialGradient(head.x,head.y,0,head.x,head.y,18);glowGrad.addColorStop(0,"rgba(255,220,140,0.6)");glowGrad.addColorStop(1,"rgba(200,169,110,0)");ctx.fillStyle=glowGrad;ctx.beginPath();ctx.arc(head.x,head.y,18,0,2*Math.PI);ctx.fill();ctx.restore();angle+=speed;if(angle>=1)angle-=1;requestAnimationFrame(draw);}resize();draw();if(window.ResizeObserver){new ResizeObserver(resize).observe(btn);}else{window.addEventListener("resize",resize);}}
+// ANIMACIÓN MATEMÁTICA EN BOTÓN HABLEMOS
+function setupOrbit(btnId,canvasId,opts){
+  var btn=document.getElementById(btnId),canvas=document.getElementById(canvasId);if(!btn||!canvas)return;opts=opts||{};
+  var ctx=canvas.getContext("2d"),angle=0,pathPad=opts.pathPad||6,glow=opts.glow||18,totalPad=pathPad+glow,trailRatio=opts.trailRatio||.28,speed=opts.speed||.0025;
+  function resize(){
+    var r=btn.getBoundingClientRect(),dpr=window.devicePixelRatio||1;
+    var cw=r.width+totalPad*2,ch=r.height+totalPad*2;
+    canvas.width=cw*dpr;canvas.height=ch*dpr;canvas.style.width=cw+"px";canvas.style.height=ch+"px";
+    ctx.setTransform(1,0,0,1,0,0);ctx.scale(dpr,dpr);
+    canvas._cw=cw;canvas._ch=ch;canvas._pW=r.width+pathPad*2;canvas._pH=r.height+pathPad*2;
+  }
+  function gp(W,H,rx,dist,perim,sX,sY){
+    if(dist<0)dist+=perim;dist=dist%perim;
+    var d=dist,aR=Math.PI/2*rx;
+    if(d<=sX)return{x:rx+d,y:0};d-=sX;
+    if(d<=aR){var a=-Math.PI/2+(d/aR)*(Math.PI/2);return{x:W-rx+Math.cos(a)*rx,y:rx+Math.sin(a)*rx};}d-=aR;
+    if(d<=sY)return{x:W,y:rx+d};d-=sY;
+    if(d<=aR){var a2=(d/aR)*(Math.PI/2);return{x:W-rx+Math.cos(a2)*rx,y:H-rx+Math.sin(a2)*rx};}d-=aR;
+    if(d<=sX)return{x:W-rx-d,y:H};d-=sX;
+    if(d<=aR){var a3=Math.PI/2+(d/aR)*(Math.PI/2);return{x:rx+Math.cos(a3)*rx,y:H-rx+Math.sin(a3)*rx};}d-=aR;
+    if(d<=sY)return{x:0,y:H-rx-d};d-=sY;
+    var a4=Math.PI+(d/aR)*(Math.PI/2);return{x:rx+Math.cos(a4)*rx,y:rx+Math.sin(a4)*rx};
+  }
+  function draw(){
+    var pW=canvas._pW,pH=canvas._pH;if(!pW||!pH){requestAnimationFrame(draw);return;}
+    ctx.clearRect(0,0,canvas._cw,canvas._ch);ctx.save();ctx.translate(glow,glow);
+    var rx=pH/2,sX=pW-2*rx,sY=Math.max(0,pH-2*rx),perim=2*sX+2*sY+2*Math.PI*rx,trailLen=perim*trailRatio,headDist=angle*perim;
+    ctx.beginPath();ctx.moveTo(rx,0);ctx.lineTo(pW-rx,0);ctx.arcTo(pW,0,pW,rx,rx);ctx.lineTo(pW,pH-rx);ctx.arcTo(pW,pH,pW-rx,pH,rx);
+    ctx.lineTo(rx,pH);ctx.arcTo(0,pH,0,pH-rx,rx);ctx.lineTo(0,rx);ctx.arcTo(0,0,rx,0,rx);ctx.closePath();
+    ctx.strokeStyle="rgba(200,169,110,0.06)";ctx.lineWidth=1;ctx.stroke();
+    for(var i=40;i>=0;i--){
+      var t=i/40,dist=headDist-t*trailLen;if(dist<0)dist+=perim;
+      var pt=gp(pW,pH,rx,dist,perim,sX,sY),pt2=gp(pW,pH,rx,dist-perim/200,perim,sX,sY);
+      ctx.beginPath();ctx.moveTo(pt2.x,pt2.y);ctx.lineTo(pt.x,pt.y);
+      ctx.strokeStyle="rgba(240,200,120,"+((1-t)*(1-t)*.9).toFixed(3)+")";ctx.lineWidth=2+(1-t)*2;ctx.lineCap="round";ctx.stroke();
+    }
+    var head=gp(pW,pH,rx,headDist,perim,sX,sY),glowGrad=ctx.createRadialGradient(head.x,head.y,0,head.x,head.y,18);
+    glowGrad.addColorStop(0,"rgba(255,220,140,0.6)");glowGrad.addColorStop(1,"rgba(200,169,110,0)");
+    ctx.fillStyle=glowGrad;ctx.beginPath();ctx.arc(head.x,head.y,18,0,2*Math.PI);ctx.fill();ctx.restore();
+    angle+=speed;if(angle>=1)angle-=1;requestAnimationFrame(draw);
+  }
+  resize();draw();
+  if(window.ResizeObserver){new ResizeObserver(resize).observe(btn);}else{window.addEventListener("resize",resize);}
+}
 setupOrbit("letsTalkBtn","orbitCanvas");setupOrbit("allProjectsBtn","allProjectsOrbitCanvas",{pathPad:3,glow:9,trailRatio:.2,speed:.002});
 
-// IDIOMA
+// MULTIIDIOMA
 var lang="es";
-function toggleLang(){lang=lang==="es"?"en":"es";document.getElementById("langBtn").textContent=lang==="es"?"EN":"ES";document.querySelectorAll("[data-es]").forEach(function(el){el.textContent=el.getAttribute("data-"+lang)||el.textContent;});document.getElementById("heroLabel").textContent=lang==="es"?"Diseñador gráfico, director visual y realizador audiovisual — Bogotá, Colombia":"Graphic Designer, Visual Director & Audiovisual Creator — Bogotá, Colombia";document.getElementById("heroTitle").innerHTML=lang==="es"?"Diseño visual para marcas<br> que quieren ser <em>recordadas</em>.":"Visual design for brands<br> that want to be <em>remembered</em>.";splitText();document.getElementById("heroSub").textContent=lang==="es"?"Trabajo con marcas gastronómicas, hoteleras, culturales y corporativas que buscan una identidad sólida, sensible y con intención.":"I work with hospitality, culinary, cultural and corporate brands seeking a solid, refined and intentional visual identity.";document.getElementById("stmtText").innerHTML=lang==="es"?"Ocho años construyendo marcas e historias visuales <em>desde Colombia,</em> con una mirada global. Trabajo con marcas gastronómicas, hoteleras, musicales y corporativas que buscan ser recordadas por lo que son, no solo por lo que hacen.":"Eight years building brands and visual stories <em>from Colombia,</em> with a global perspective. I work with culinary, hospitality, music, and corporate brands that seek to be remembered for what they are, not just for what they do.";document.getElementById("projTitle").innerHTML=lang==="es"?"Proyectos <em>Seleccionados</em>":"Selected <em>Projects</em>";document.getElementById("footerRight").textContent=lang==="es"?"Diseñador Gráfico & Realizador Audiovisual":"Graphic Designer & Audiovisual Director";document.getElementById("contactTitle").innerHTML=lang==="es"?"¿Tienes un proyecto<br>en <em>mente?</em>":"Have a project<br>in <em>mind?</em>";document.getElementById("contactSub").textContent=lang==="es"?"Si tu marca necesita una identidad más clara, una presencia más sólida o una dirección visual con intención, conversemos.":"If your brand needs a clearer identity, a stronger presence, or intentional visual direction, let’s talk.";document.querySelector(".lets-talk-text").textContent=lang==="es"?"Hablemos":"Let's talk";}
+function toggleLang(){
+  lang=lang==="es"?"en":"es";
+  document.getElementById("langBtn").textContent=lang==="es"?"EN":"ES";
+  document.querySelectorAll("[data-es]").forEach(function(el){el.textContent=el.getAttribute("data-"+lang)||el.textContent;});
+  
+  document.getElementById("heroLabel").textContent=lang==="es"?"Diseñador gráfico, director visual y realizador audiovisual — Bogotá, Colombia":"Graphic Designer, Visual Director & Audiovisual Creator — Bogotá, Colombia";
+  document.getElementById("heroTitle").innerHTML=lang==="es"?"Diseño visual para marcas<br> que quieren ser <em>recordadas</em>.":"Visual design for brands<br> that want to be <em>remembered</em>.";
+  splitText();
+  
+  document.getElementById("heroSub").textContent=lang==="es"?"Trabajo con marcas gastronómicas, hoteleras, culturales y corporativas que buscan una identidad sólida, sensible y con intención.":"I work with hospitality, culinary, cultural and corporate brands seeking a solid, refined and intentional visual identity.";
+  
+  document.getElementById("stmtText").innerHTML=lang==="es"?
+    "Ocho años construyendo marcas e historias visuales desde Colombia, con una mirada global. Trabajo con marcas gastronómicas, hoteleras, musicales y corporativas que <em>buscan ser recordadas por lo que son, no solo por lo que hacen.</em>":
+    "Eight years building brands and visual stories from Colombia, with a global perspective. I work with culinary, hospitality, music, and corporate brands that <em>seek to be remembered for what they are, not just for what they do.</em>";
+    
+  document.getElementById("projTitle").innerHTML=lang==="es"?"Proyectos <em>Seleccionados</em>":"Selected <em>Projects</em>";
+  document.getElementById("avSectionTitle").innerHTML=lang==="es"?"Campañas promocionales para <em>eventos masivos</em>":"Promotional campaigns for <em>massive events</em>";
+  document.getElementById("footerRight").textContent=lang==="es"?"Diseñador Gráfico & Realizador Audiovisual":"Graphic Designer & Audiovisual Director";
+  document.getElementById("contactTitle").innerHTML=lang==="es"?"¿Tienes un proyecto<br>en <em>mente?</em>":"Have a project<br>in <em>mind?</em>";
+  
+  document.getElementById("contactSub").textContent=lang==="es"?
+    "Si tu marca necesita una identidad más clara, una presencia más sólida o una dirección visual con intención, conversemos.":
+    "If your brand needs a clearer identity, a stronger presence, or intentional visual direction, let’s talk.";
+  document.getElementById("letsTalkBtn").querySelector(".lets-talk-text").textContent=lang==="es"?"Hablemos":"Let's talk";
+  
+  if(!AV.audioEnabled) {
+    crTxt.textContent = lang === "es" ? "click sound" : "click sound";
+  } else {
+    crTxt.textContent = lang === "es" ? "audio on" : "audio on";
+  }
+}
 document.getElementById("langBtn").addEventListener("click",toggleLang);
+
+// MOTOR AUDIOVISUAL REFORMADO
+var AV={
+  vids:{}, audioEnabled:false, hoverKey:null,
+  data:{
+    cepeda:{name:"Andrés Cepeda",sub:"Tour Promo & Aftermovie",after:"https://res.cloudinary.com/dxpap6uiq/video/upload/v1779080464/Andre%CC%81s_Cepeda_s3zsag.mp4"},
+    habif:{name:"Daniel Habif",sub:"Motion Graphics & Teasers",after:"https://res.cloudinary.com/dxpap6uiq/video/upload/v1779080464/Andre%CC%81s_Cepeda_s3zsag.mp4"},
+    kany:{name:"Kany García",sub:"Lanzamientos & Cobertura",after:"https://res.cloudinary.com/dxpap6uiq/video/upload/v1779080464/Andre%CC%81s_Cepeda_s3zsag.mp4"},
+    buenavida:{name:"Buena Vida Fest",sub:"Aftermovie Oficial",after:"https://res.cloudinary.com/dxpap6uiq/video/upload/v1774470677/BUENA_VIDA_BEACH_FESTIVAL_2023.mp4"}
+  },
+  init:function(){
+    var split=document.getElementById("avSplit");
+    
+    var videoObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        var col = entry.target;
+        var vid = col.querySelector("video");
+        if (entry.isIntersecting) {
+          if (vid.getAttribute("preload") === "none") {
+            vid.setAttribute("preload", "metadata");
+            vid.load();
+          }
+          vid.play().catch(function(){});
+        } else {
+          vid.pause();
+        }
+      });
+    }, { threshold: 0.1 });
+
+    if(split){
+      split.addEventListener("mouseenter", function() {
+        cr.style.width = "72px"; cr.style.height = "72px";
+        cr.style.borderColor = "var(--accent)"; cr.style.background = "var(--accent)";
+        crTxt.style.opacity = "1";
+        crTxt.textContent = AV.audioEnabled ? (lang==="es"?"audio on":"audio on") : (lang==="es"?"click sound":"click sound");
+      });
+      
+      split.addEventListener("mouseleave", function() {
+        cr.style.width = "32px"; cr.style.height = "32px";
+        cr.style.borderColor = "rgba(200,169,110,.32)"; cr.style.background = "transparent";
+        crTxt.style.opacity = "0";
+        AV.muteAllPreviews();
+        AV.hoverKey = null;
+      });
+      
+      split.addEventListener("click", function() {
+        AV.audioEnabled = !AV.audioEnabled;
+        crTxt.textContent = AV.audioEnabled ? (lang==="es"?"audio on":"audio on") : (lang==="es"?"click sound":"click sound");
+        if(AV.audioEnabled && AV.hoverKey) { 
+          AV.soundHover(AV.hoverKey); 
+        } else { 
+          AV.muteAllPreviews(); 
+        }
+      });
+    }
+
+    document.querySelectorAll(".av-col").forEach(function(el){
+      var key=el.getAttribute("data-artist"); var vid=el.querySelector("video");
+      if(!vid||!key)return; AV.vids[key]=vid;
+      vid.muted=true; vid.volume=0;
+      videoObserver.observe(el);
+      
+      el.addEventListener("mouseenter",function(){
+        AV.hoverKey=key;
+        document.querySelectorAll(".av-col").forEach(function(col){ col.classList.toggle("is-active",col.getAttribute("data-artist")===key); });
+        Object.keys(AV.vids).forEach(function(k){AV.vids[k].play().catch(function(){});});
+        
+        if(AV.audioEnabled){ 
+          AV.soundHover(key); 
+        }
+      });
+      
+      el.addEventListener("mouseleave",function(){
+        el.classList.remove("is-active");
+        if(AV.audioEnabled){ AV.muteAllPreviews(); }
+        AV.hoverKey=null;
+      });
+    });
+    
+    var closeBtn=document.getElementById("avClose"); var modal=document.getElementById("avModal");
+    if(closeBtn)closeBtn.addEventListener("click",function(){AV.close();});
+    if(modal)modal.addEventListener("click",function(e){if(e.target===this)AV.close();});
+    
+    if("IntersectionObserver" in window && split){
+      var splitObserver=new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(!entry.isIntersecting || entry.intersectionRatio<0.28){
+            AV.muteAllPreviews();
+          }
+        });
+      },{threshold:[0,.28,.6]});
+      splitObserver.observe(split);
+    }
+    if(split){
+      var updateSplitExit=function(){ var r=split.getBoundingClientRect(); var leaving=r.bottom<window.innerHeight*.82 && r.bottom>0; split.classList.toggle("is-leaving",leaving); };
+      updateSplitExit(); window.addEventListener("scroll",function(){requestAnimationFrame(updateSplitExit);},{passive:true}); window.addEventListener("resize",updateSplitExit);
+    }
+  },
+  muteAllPreviews:function(){ Object.keys(AV.vids).forEach(function(k){ var v=AV.vids[k]; v.muted=true; v.volume=0; v.play().catch(function(){}); }); },
+  soundHover:function(key){ Object.keys(AV.vids).forEach(function(k){ var v=AV.vids[k]; if(k===key){ v.muted=false; v.volume=.68; v.play().catch(function(){}); } else { v.muted=true; v.volume=0; } }); },
+  open:function(a){},
+  close:function(){ var modal=document.getElementById("avModal"); if(modal)modal.classList.remove("active"); document.body.style.overflow=""; }
+};
+document.addEventListener("DOMContentLoaded",function(){AV.init();});
+
+// CIERRE DE LA INTRO / PRELOADER
+(function(){
+  var pl=document.getElementById("preloader");
+  if(!pl)return;
+  var closed=false;
+  function closePreloader(){
+    if(closed)return; closed=true;
+    pl.classList.add("hide");
+    document.body.style.overflow="";
+    setTimeout(function(){ if(pl&&pl.parentNode) pl.parentNode.removeChild(pl); }, 100);
+  }
+  // El desvanecido del overlay ya está sincronizado con el final del círculo (~1s a 1.5s)
+  setTimeout(closePreloader, 1450);
+  // Seguridad: si algo falla, no bloquear nunca la web más de 5s
+  setTimeout(closePreloader, 5000);
+})();
 </script>
+
+<!-- BOTÓN FLOTANTE WHATSAPP -->
+<a id="wa-float" href="https://api.whatsapp.com/send?phone=573157128926&text=%C2%A1Hola%2C%20Angel!%20Vi%20tu%20portafolio%20web%20y%20me%20gustar%C3%ADa%20cotizar%20un%20proyect." target="_blank" rel="noopener" aria-label="Escríbeme por WhatsApp">
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 2C8.28 2 2 8.28 2 16.004c0 2.478.651 4.803 1.789 6.822L2 30l7.382-1.775A13.94 13.94 0 0016.004 30C23.72 30 30 23.72 30 16.004 30 8.28 23.72 2 16.004 2zm0 25.492a11.44 11.44 0 01-5.848-1.607l-.42-.25-4.38 1.053 1.085-4.26-.274-.437A11.45 11.45 0 014.508 16c0-6.348 5.148-11.492 11.496-11.492S27.496 9.652 27.496 16 22.352 27.492 16.004 27.492zm6.3-8.6c-.345-.172-2.042-1.007-2.358-1.12-.316-.115-.547-.172-.777.172s-.892 1.12-1.093 1.35c-.201.23-.403.258-.748.086-.345-.172-1.458-.537-2.777-1.712-1.027-.915-1.72-2.044-1.921-2.39-.201-.344-.022-.53.151-.702.155-.154.345-.402.517-.603.172-.2.23-.344.345-.574.115-.23.058-.43-.029-.603-.086-.172-.777-1.875-1.064-2.567-.28-.674-.565-.583-.777-.594l-.661-.011a1.27 1.27 0 00-.92.43c-.316.344-1.208 1.179-1.208 2.875s1.237 3.334 1.41 3.563c.172.23 2.434 3.72 5.897 5.214.824.355 1.468.567 1.97.726.827.263 1.581.226 2.176.137.664-.1 2.042-.835 2.33-1.641.288-.805.288-1.496.201-1.641-.086-.143-.316-.23-.66-.402z"/></svg>
+</a>
+
 </body>
 </html>
